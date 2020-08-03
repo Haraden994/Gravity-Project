@@ -35,6 +35,7 @@ public class OVRGrabbable : MonoBehaviour
     protected Collider[] m_grabPoints = null;
 
     private Rigidbody _rb;
+    [HideInInspector]
     public Vector3 momentum;
     
     protected bool m_grabbedKinematic = false;

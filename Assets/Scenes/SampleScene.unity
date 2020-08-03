@@ -188,6 +188,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Katana
       objectReference: {fileID: 0}
+    - target: {fileID: 920710379105935133, guid: a7d6b8c7104034c459c257fce0277176,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 920710379732615624, guid: a7d6b8c7104034c459c257fce0277176,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 920710380399747591, guid: a7d6b8c7104034c459c257fce0277176,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3944429790020130589, guid: a7d6b8c7104034c459c257fce0277176,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 920710378339818138, guid: a7d6b8c7104034c459c257fce0277176, type: 3}
     - {fileID: 920710378339818137, guid: a7d6b8c7104034c459c257fce0277176, type: 3}
@@ -286,7 +306,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A
+  m_Text: Please grab something
 --- !u!222 &37910027
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -354,7 +374,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
     m_FontSize: 2
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 57
@@ -870,7 +890,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
     m_FontSize: 2
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 57
@@ -1057,7 +1077,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: F
+  m_Text: Please grab something
 --- !u!222 &192293943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1574,7 +1594,7 @@ MonoBehaviour:
   bodyOffset: {x: 0, y: -0.7, z: 0}
   neckThreshold: 45
   bodyRotationSpeed: 2
-  cameraDistanceThreshold: 0.55
+  cameraDistanceThreshold: 0.6
 --- !u!1 &541909467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,7 +1654,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
     m_FontSize: 2
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 57
@@ -2322,7 +2342,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
     m_FontSize: 3
-    m_FontStyle: 0
+    m_FontStyle: 3
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 57
@@ -2416,7 +2436,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GV
+  m_Text: Please grab something
 --- !u!222 &975799044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2611,7 +2631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v
+  m_Text: Please grab something
 --- !u!222 &1096750904
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2992,7 +3012,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0ebbcec4dd8e2f040b163f10df7e8382, type: 3}
     m_FontSize: 2
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 57
@@ -3117,8 +3137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_allowOffhandGrab: 1
-  m_snapPosition: 1
-  m_snapOrientation: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
   momentum: {x: 0, y: 0, z: 0}

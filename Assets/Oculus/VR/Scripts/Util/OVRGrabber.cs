@@ -382,19 +382,21 @@ public class OVRGrabber : MonoBehaviour
 			OVRPose trackingSpace = transform.ToOVRPose() * localPose.Inverse();
 			Vector3 linearVelocity = trackingSpace.orientation * OVRInput.GetLocalControllerVelocity(m_controller);
 			Vector3 angularVelocity = trackingSpace.orientation * OVRInput.GetLocalControllerAngularVelocity(m_controller);
-            Vector3 linearAcceleration = OVRInput.GetLocalControllerAcceleration(m_controller);
-            Vector3 angularAcceleration = OVRInput.GetLocalControllerAngularAcceleration(m_controller);
+            Vector3 linearAcceleration = trackingSpace.orientation * OVRInput.GetLocalControllerAcceleration(m_controller);
+            Vector3 angularAcceleration = trackingSpace.orientation * OVRInput.GetLocalControllerAngularAcceleration(m_controller);
 
             // Velocity = (Force of the player / Mass of the grabbed) * Time.fixedDeltaTime
-            Vector3 forceApplied = linearVelocity * playerRB.mass;
-            Vector3 rotationalForceApplied = angularVelocity * (playerRB.mass / 1.5f);
-            Vector3 grabbedVelocity = (forceApplied / grabbedObject.grabbedRigidbody.mass) * Time.fixedDeltaTime;
-            Vector3 grabbedAngularVelocity = (rotationalForceApplied / grabbedObject.grabbedRigidbody.mass) * Time.fixedDeltaTime;
+            Vector3 forceApplied = -linearAcceleration * playerRB.mass;
+            Vector3 rotationalForceApplied = angularAcceleration * (playerRB.mass / 1.5f);
+            Vector3 grabbedVelocity = forceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
+            Vector3 grabbedAngularVelocity = rotationalForceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
 
-            Vector3[] vectorList = {linearVelocity, linearAcceleration, forceApplied, grabbedVelocity};
+            Vector3[] vectorList = {linearVelocity, -linearAcceleration, forceApplied, grabbedVelocity};
             canvasDebugger.ShowVectorsInCanvas(vectorList);
             
+            //Third law of motion
             GrabbableRelease(grabbedVelocity, grabbedAngularVelocity);
+            playerRB.velocity = -forceApplied / playerRB.mass * Time.fixedDeltaTime;
         }
 
         // Re-enable grab volumes to allow overlap events

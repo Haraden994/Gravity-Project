@@ -17,7 +17,7 @@ public class MyController : MonoBehaviour
     private GameObject body;
     [SerializeField]
     private Vector3 bodyOffset = new Vector3(0.0f, -0.5f, 0.0f);
-    [SerializeField] 
+    [SerializeField]
     private float neckThreshold = 30.0f;
     [SerializeField] 
     private float bodyRotationSpeed = 2.0f;
