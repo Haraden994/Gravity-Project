@@ -34,6 +34,8 @@ public class OVRGrabbable : MonoBehaviour
     [SerializeField]
     protected Collider[] m_grabPoints = null;
 
+    public bool climbable;
+
     private Rigidbody _rb;
     [HideInInspector]
     public Vector3 momentum;
@@ -121,7 +123,13 @@ public class OVRGrabbable : MonoBehaviour
     {
         m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
-        _rb.isKinematic = true;
+        if (climbable)
+	        m_grabbedBy.isClimbing = true;
+        else
+        {
+	        m_grabbedBy.isGrabbing = true;
+	        _rb.isKinematic = true;
+        }
     }
 
 	/// <summary>

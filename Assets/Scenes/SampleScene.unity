@@ -236,6 +236,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!1 &37910024
 GameObject:
@@ -456,11 +457,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_allowOffhandGrab: 1
+  m_allowOffhandGrab: 0
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 1
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &50920334
 BoxCollider:
@@ -976,6 +978,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7230318296253393828, guid: 573874df8770a4e41acbe9035e8e26b2,
+        type: 3}
+      propertyPath: m_allowOffhandGrab
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230318296253393828, guid: 573874df8770a4e41acbe9035e8e26b2,
+        type: 3}
+      propertyPath: climbable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7230318296253393832, guid: 573874df8770a4e41acbe9035e8e26b2,
         type: 3}
       propertyPath: m_Mass
@@ -1007,7 +1019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c339245197af74ca485faa5a8f8adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  driftingDirection: {x: 0, y: 0, z: -1200}
+  driftingDirection: {x: 0, y: 0, z: -3000}
 --- !u!1 &192293940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,6 +1459,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &335857966
 BoxCollider:
@@ -1725,6 +1738,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &643167085
 BoxCollider:
@@ -1854,6 +1868,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &659964594
 BoxCollider:
@@ -2077,6 +2092,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &704024667
 BoxCollider:
@@ -2206,6 +2222,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &727330289
 BoxCollider:
@@ -2766,6 +2783,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &1238859184
 BoxCollider:
@@ -2856,6 +2874,7 @@ GameObject:
   - component: {fileID: 1421309026}
   - component: {fileID: 1421309025}
   - component: {fileID: 1421309028}
+  - component: {fileID: 1421309029}
   m_Layer: 0
   m_Name: Big
   m_TagString: Untagged
@@ -2945,7 +2964,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421309023}
   serializedVersion: 2
-  m_Mass: 60
+  m_Mass: 5000
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -2953,6 +2972,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1421309029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421309023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61468f8b77ae4b92c344bc9a600fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allowOffhandGrab: 1
+  m_snapPosition: 0
+  m_snapOrientation: 0
+  m_snapOffset: {fileID: 0}
+  m_grabPoints: []
+  climbable: 1
+  momentum: {x: 0, y: 0, z: 0}
 --- !u!1 &1533645893
 GameObject:
   m_ObjectHideFlags: 0
@@ -3141,6 +3179,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &1608755361
 BoxCollider:
@@ -3367,6 +3406,7 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+  climbable: 0
   momentum: {x: 0, y: 0, z: 0}
 --- !u!65 &1914449014
 BoxCollider:

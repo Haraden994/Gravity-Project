@@ -922,6 +922,16 @@
             </e>
           </e>
         </e>
+        <e p="PolygonSciFiSpace" t="Include">
+          <e p="Shaders" t="Include">
+            <e p="POLYGON_SpaceShip_Rim.shader" t="Include" />
+            <e p="POLYGON_Triplanar.shader" t="Include" />
+            <e p="SyntyStudios_Asteroid.shader" t="Include" />
+            <e p="SyntyStudios_Planet.shader" t="Include" />
+            <e p="SyntyStudios_Planet_Lines.shader" t="Include" />
+            <e p="SyntyStudios_Triplanar_ObjectSpace.shader" t="Include" />
+          </e>
+        </e>
         <e p="Stagit" t="Include">
           <e p="SkyboxEarthPlanets" t="Include">
             <e p="Readme.txt" t="Include" />

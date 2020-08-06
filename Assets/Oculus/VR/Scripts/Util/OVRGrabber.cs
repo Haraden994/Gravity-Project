@@ -77,15 +77,26 @@ public class OVRGrabber : MonoBehaviour
     protected Vector3 m_anchorOffsetPosition;
     protected float m_prevFlex;
 	protected OVRGrabbable m_grabbedObj = null;
+    protected Rigidbody m_grabbedRigidbody = null;
     protected Vector3 m_grabbedObjectPosOff;
     protected Quaternion m_grabbedObjectRotOff;
+    protected Vector3 m_playerPosOff;
 	protected Dictionary<OVRGrabbable, int> m_grabCandidates = new Dictionary<OVRGrabbable, int>();
 	protected bool m_operatingWithoutOVRCameraRig = true;
+    
+    [HideInInspector]
+    public Transform dummyTransform;
 
     private Rigidbody playerRB;
     private Vector3 playerMomentum;
     
     private bool oncePerGrab = true;
+    [HideInInspector]
+    public bool isGrabbing = false;
+    [HideInInspector]
+    public bool isClimbing = false;
+    private Vector3 grabberPreviousPosition;
+    private Vector3 climbingMovement = Vector3.zero;
 
     /// <summary>
     /// The currently grabbed object.
@@ -182,9 +193,18 @@ public class OVRGrabber : MonoBehaviour
             GetComponent<Rigidbody>().MoveRotation(destRot);
         }
 
-        if (!m_parentHeldObject)
+        if (!m_parentHeldObject && isGrabbing)
         {
             MoveGrabbedObject(destPos, destRot);
+        }
+
+        if (isClimbing)
+        {
+            grabberPreviousPosition = dummyTransform.position;
+            transform.position = dummyTransform.position;
+            Vector3 movementAmount = grabberPreviousPosition - m_parentTransform.TransformPoint(m_anchorOffsetPosition);
+            climbingMovement += movementAmount;
+            playerRB.MovePosition(climbingMovement);
         }
 
         m_lastPos = transform.position;
@@ -294,6 +314,7 @@ public class OVRGrabber : MonoBehaviour
 
             m_grabbedObj = closestGrabbable;
             m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
+            m_grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
 
             m_lastPos = transform.position;
             m_lastRot = transform.rotation;
@@ -333,17 +354,35 @@ public class OVRGrabber : MonoBehaviour
             // Note: force teleport on grab, to avoid high-speed travel to dest which hits a lot of other objects at high
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
-            MoveGrabbedObject(m_lastPos, m_lastRot, false);
-            SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
+            if (isClimbing)
+            {
+                if (dummyTransform == null)
+                {
+                    GameObject go = new GameObject();
+                    go.transform.name = "DummyTransform";
+                    go.transform.parent = transform;
+                    go.transform.position = transform.position;
+                    go.transform.localEulerAngles = Vector3.zero;
+
+                    dummyTransform = go.transform;
+                }
+                dummyTransform.parent = grabbedObject.transform;
+                grabberPreviousPosition = dummyTransform.position;
+            }
+            if (isGrabbing)
+            {
+                MoveGrabbedObject(m_lastPos, m_lastRot, false);
+                SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
+                if (oncePerGrab)
+                {
+                    playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
+                    oncePerGrab = false;
+                }
+            }
+            
             if (m_parentHeldObject)
             {
                 m_grabbedObj.transform.parent = transform;
-            }
-
-            if (oncePerGrab)
-            {
-                playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
-                oncePerGrab = false;
             }
         }
     }
@@ -354,20 +393,19 @@ public class OVRGrabber : MonoBehaviour
         {
             return;
         }
-
-        Rigidbody grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
+        
         Vector3 grabbablePosition = pos + rot * m_grabbedObjectPosOff;
         Quaternion grabbableRotation = rot * m_grabbedObjectRotOff;
 
         if (forceTeleport)
         {
-            grabbedRigidbody.transform.position = grabbablePosition;
-            grabbedRigidbody.transform.rotation = grabbableRotation;
+            m_grabbedRigidbody.transform.position = grabbablePosition;
+            m_grabbedRigidbody.transform.rotation = grabbableRotation;
         }
         else
         {
-            grabbedRigidbody.MovePosition(grabbablePosition);
-            grabbedRigidbody.MoveRotation(grabbableRotation);
+            m_grabbedRigidbody.MovePosition(grabbablePosition);
+            m_grabbedRigidbody.MoveRotation(grabbableRotation);
         }
     }
 
@@ -397,11 +435,20 @@ public class OVRGrabber : MonoBehaviour
             //Third law of motion
             GrabbableRelease(grabbedVelocity, grabbedAngularVelocity);
             playerRB.velocity = -forceApplied / playerRB.mass * Time.fixedDeltaTime;
+            if (dummyTransform != null)
+            {
+                dummyTransform.parent = transform;
+                dummyTransform.localPosition = Vector3.zero;
+            }
         }
-
+        
         // Re-enable grab volumes to allow overlap events
         GrabVolumeEnable(true);
+        isGrabbing = false;
+        isClimbing = false;
         oncePerGrab = true;
+        climbingMovement = Vector3.zero;
+        transform.position = m_parentTransform.position;
     }
 
     protected void GrabbableReleaseWithForce(Vector3 forceApplied)
@@ -418,6 +465,7 @@ public class OVRGrabber : MonoBehaviour
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
         SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
         m_grabbedObj = null;
+        m_grabbedRigidbody = null;
     }
 
     protected virtual void GrabVolumeEnable(bool enabled)
@@ -444,8 +492,7 @@ public class OVRGrabber : MonoBehaviour
     {
         if (m_grabbedObj == grabbable)
         {
-            //GrabbableRelease(Vector3.zero, Vector3.zero);
-            GrabbableReleaseWithForce(Vector3.zero);
+            GrabbableRelease(Vector3.zero, Vector3.zero);
         }
     }
 
