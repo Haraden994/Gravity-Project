@@ -159,6 +159,62 @@
             <e p="particleTextures.txt" t="Include" />
           </e>
         </e>
+        <e p="CurvedUI" t="Include">
+          <e p="Demo Scenes" t="Include">
+            <e p="Demo Scenes Content" t="Include">
+              <e p="CUI_AnimateCurvedFillOnStart.cs" t="Include" />
+              <e p="CUI_CameraController.cs" t="Include" />
+              <e p="CUI_CameraRotationOnButtonHeld.cs" t="Include" />
+              <e p="CUI_ChangeValueOnHold.cs" t="Include" />
+              <e p="CUI_DragBetweenCanvases.cs" t="Include" />
+              <e p="CUI_draggable.cs" t="Include" />
+              <e p="CUI_GunController.cs" t="Include" />
+              <e p="CUI_GunMovement.cs" t="Include" />
+              <e p="CUI_inventory_paralax.cs" t="Include" />
+              <e p="CUI_MoveAlong.cs" t="Include" />
+              <e p="CUI_MoveHeartbeat.cs" t="Include" />
+              <e p="CUI_OrientOnCurvedSpace.cs" t="Include" />
+              <e p="CUI_PerlinNoisePosition.cs" t="Include" />
+              <e p="CUI_PerlinNoiseRotation.cs" t="Include" />
+              <e p="CUI_PickImageFromSet.cs" t="Include" />
+              <e p="CUI_RaycastToCanvas.cs" t="Include" />
+              <e p="CUI_RiseChildrenOverTime.cs" t="Include" />
+              <e p="CUI_rotation_anim.cs" t="Include" />
+              <e p="CUI_ShowParentCoordinates.cs" t="Include" />
+              <e p="CUI_TMPChecker.cs" t="Include" />
+              <e p="CUI_touchpad.cs" t="Include" />
+              <e p="CUI_ViveButtonState.cs" t="Include" />
+              <e p="CUI_ViveHapticPulse.cs" t="Include" />
+              <e p="CUI_WorldSpaceCursorFollow.cs" t="Include" />
+              <e p="CUI_WorldSpaceMouseMultipleCanvases.cs" t="Include" />
+              <e p="OverlayBlend.shader" t="Include" />
+            </e>
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="CurvedUIEventSystem.cs" t="Include" />
+            <e p="CurvedUIExtensionMethods.cs" t="Include" />
+            <e p="CurvedUIHandSwitcher.cs" t="Include" />
+            <e p="CurvedUIInputFieldCaret.cs" t="Include" />
+            <e p="CurvedUIInputModule.cs" t="Include" />
+            <e p="CurvedUILaserBeam.cs" t="Include" />
+            <e p="CurvedUIPointerEventData.cs" t="Include" />
+            <e p="CurvedUIRaycaster.cs" t="Include" />
+            <e p="CurvedUISettings.cs" t="Include" />
+            <e p="CurvedUIVertexEffect.cs" t="Include" />
+            <e p="CurvedUIViveController.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="CurvedUIHandSwitcherEditor.cs" t="Include" />
+              <e p="CurvedUIInputModuleEditor.cs" t="Include" />
+              <e p="CurvedUIScriptOrder.cs" t="Include" />
+              <e p="CurvedUISettingsEditor.cs" t="Include" />
+            </e>
+            <e p="Experimental" t="Include">
+              <e p="CurvedUITMP.cs" t="Include" />
+              <e p="CurvedUITMPInputFieldCaret.cs" t="Include" />
+              <e p="CurvedUITMPSubmesh.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Oculus" t="Include">
           <e p="AudioManager" t="Include">
             <e p="Scenes" t="Include">
