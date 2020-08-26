@@ -7,6 +7,8 @@ public class MyController : MonoBehaviour
 {
     [SerializeField] 
     private GameObject OVRCamera;
+    [SerializeField] 
+    private GameObject inGameMenu;
         
     public float boostValue = 1.0f;
     public float brakePower = 1.0f;
@@ -27,14 +29,17 @@ public class MyController : MonoBehaviour
     private Vector3 camRotation;
     private Quaternion bodyRotation;
     private Rigidbody _rb;
+    private PauseManager pauseManager;
     private Transform cameraTransform;
     private bool playerInRange = true;
+    private bool menuOpened;
 
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody>();
+        pauseManager = FindObjectOfType<PauseManager>();
     }
 
     void Update()
@@ -47,10 +52,9 @@ public class MyController : MonoBehaviour
         MoveWithOVRCamera();
     }
     
-    // Update is called once per frame
     void FixedUpdate()
     {
-        SAFERMovement();
+        ProcessInput();
     }
 
     void MoveWithOVRCamera()
@@ -80,12 +84,12 @@ public class MyController : MonoBehaviour
         }
     }
     
-    void SAFERMovement()
+    void ProcessInput()
     {
         Vector2 primaryAxis = ApplyDeadZones(OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick));
         Vector2 secondaryAxis = ApplyDeadZones(OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick));
 
-        if (playerInRange)
+        if (playerInRange && !menuOpened)
         {
             if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f)
                 _rb.AddRelativeForce(new Vector3(primaryAxis.x, 0.0f, primaryAxis.y) * boostValue);
@@ -108,10 +112,26 @@ public class MyController : MonoBehaviour
                 _rb.angularVelocity = Vector3.Lerp(_rb.angularVelocity, Vector3.zero, Time.deltaTime * brakePower);
             }
         }
-        else
+        /*else
         {
             _rb.velocity = Vector3.Lerp(_rb.velocity, Vector3.zero, Time.deltaTime * brakePower);
             _rb.angularVelocity = Vector3.Lerp(_rb.angularVelocity, Vector3.zero, Time.deltaTime * brakePower);
+        }*/
+
+        if (OVRInput.GetDown(OVRInput.Button.Start))
+        {
+            menuOpened = !menuOpened;
+
+            if (menuOpened)
+            {
+                pauseManager.Pause();
+            }
+            else
+            {
+                pauseManager.Resume();
+            }
+            
+            inGameMenu.SetActive(menuOpened);
         }
     }
     

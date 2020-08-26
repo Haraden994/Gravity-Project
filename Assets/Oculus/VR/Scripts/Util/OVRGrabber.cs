@@ -356,6 +356,9 @@ public class OVRGrabber : MonoBehaviour
             // is beyond the scope of this demo.
             if (isClimbing)
             {
+                playerRB.velocity = Vector3.zero;
+                m_grabbedRigidbody.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
+
                 if (dummyTransform == null)
                 {
                     GameObject go = new GameObject();
@@ -373,11 +376,11 @@ public class OVRGrabber : MonoBehaviour
             {
                 MoveGrabbedObject(m_lastPos, m_lastRot, false);
                 SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
-                if (oncePerGrab)
-                {
+                //if (oncePerGrab)
+                //{
                     playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
-                    oncePerGrab = false;
-                }
+                    //oncePerGrab = false;
+                //}
             }
             
             if (m_parentHeldObject)
@@ -429,17 +432,14 @@ public class OVRGrabber : MonoBehaviour
             Vector3 grabbedVelocity = forceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
             Vector3 grabbedAngularVelocity = rotationalForceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
 
-            Vector3[] vectorList = {linearVelocity, -linearAcceleration, forceApplied, grabbedVelocity};
-            canvasDebugger.ShowVectorsInCanvas(vectorList);
+            //Vector3[] vectorList = {linearVelocity, -linearAcceleration, forceApplied, grabbedVelocity};
+            //canvasDebugger.ShowVectorsInCanvas(vectorList);
             
             //Third law of motion
+            playerRB.velocity += (-forceApplied / playerRB.mass * Time.fixedDeltaTime);
+            if (isClimbing)
+                playerRB.velocity += m_grabbedRigidbody.velocity;
             GrabbableRelease(grabbedVelocity, grabbedAngularVelocity);
-            playerRB.velocity = -forceApplied / playerRB.mass * Time.fixedDeltaTime;
-            if (dummyTransform != null)
-            {
-                dummyTransform.parent = transform;
-                dummyTransform.localPosition = Vector3.zero;
-            }
         }
         
         // Re-enable grab volumes to allow overlap events
@@ -461,6 +461,11 @@ public class OVRGrabber : MonoBehaviour
     
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
     {
+        if (dummyTransform != null)
+        {
+            dummyTransform.parent = transform;
+            dummyTransform.localPosition = Vector3.zero;
+        }
         m_grabbedObj.GrabEnd(linearVelocity, angularVelocity);
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
         SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);

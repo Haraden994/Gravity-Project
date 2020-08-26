@@ -20,7 +20,6 @@ namespace CurvedUI
         [SerializeField]
         bool hideWhenNotAimingAtCanvas = false;
 
-
         // Update is called once per frame
         protected void Update()
         {
@@ -55,12 +54,21 @@ namespace CurvedUI
                     {
                         //find if there are any canvas objects we're pointing at. we only want transforms with graphics to block the pointer. (that are drawn by canvas => depth not -1)
                         int selectablesUnderPointer = cuiSettings.GetObjectsUnderPointer().FindAll(x => x.GetComponent<Graphic>() != null && x.GetComponent<Graphic>().depth != -1).Count;
-
+                        
+                        LaserBeamTransform.gameObject.SetActive(true);
                         length = selectablesUnderPointer == 0 ? 10000 : Vector3.Distance(hit.point, this.transform.position);
                     }
-                    else if (hideWhenNotAimingAtCanvas) length = 0;
+                    else if (hideWhenNotAimingAtCanvas)
+                    {
+                        length = 0;
+                        LaserBeamTransform.gameObject.SetActive(false);
+                    }
                 }
-                else if (hideWhenNotAimingAtCanvas) length = 0;
+                else if (hideWhenNotAimingAtCanvas)
+                {
+                    length = 0;
+                    LaserBeamTransform.gameObject.SetActive(false);
+                }
 
 
                 //set the leangth of the beam

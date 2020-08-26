@@ -669,6 +669,7 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     1: CURVEDUI_TOUCH
+    7: CURVEDUI_TOUCH
   platformArchitecture: {}
   scriptingBackend:
     Android: 0

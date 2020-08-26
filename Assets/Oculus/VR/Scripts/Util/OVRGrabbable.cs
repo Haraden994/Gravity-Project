@@ -138,8 +138,8 @@ public class OVRGrabbable : MonoBehaviour
 	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
 	    _rb.isKinematic = m_grabbedKinematic;
-        _rb.velocity = linearVelocity;
-        _rb.angularVelocity = angularVelocity;
+        _rb.velocity += linearVelocity;
+        _rb.angularVelocity += angularVelocity;
         m_grabbedBy = null;
         m_grabbedCollider = null;
     }
