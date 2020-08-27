@@ -8,7 +8,7 @@ public class PauseManager : MonoBehaviour
     private Rigidbody[] rigidbodies;
     private Vector3[] velocities;
     private Vector3[] angularVelocities;
-    
+
     void Start()
     {
         rigidbodies = FindObjectsOfType<Rigidbody>();

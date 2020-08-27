@@ -215,6 +215,9 @@
             </e>
           </e>
         </e>
+        <e p="Materials &amp; Shaders" t="Include">
+          <e p="UIOnTop.shader" t="Include" />
+        </e>
         <e p="Oculus" t="Include">
           <e p="AudioManager" t="Include">
             <e p="Scenes" t="Include">
@@ -903,6 +906,7 @@
                 <e p="CanvasDebugger.cs" t="Include" />
                 <e p="DriftingObject.cs" t="Include" />
                 <e p="GameManager.cs" t="Include" />
+                <e p="MyButton.cs" t="Include" />
                 <e p="MyController.cs" t="Include" />
                 <e p="PauseManager.cs" t="Include" />
               </e>

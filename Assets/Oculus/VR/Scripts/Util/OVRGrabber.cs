@@ -376,11 +376,7 @@ public class OVRGrabber : MonoBehaviour
             {
                 MoveGrabbedObject(m_lastPos, m_lastRot, false);
                 SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
-                //if (oncePerGrab)
-                //{
-                    playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
-                    //oncePerGrab = false;
-                //}
+                playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
             }
             
             if (m_parentHeldObject)
@@ -468,6 +464,8 @@ public class OVRGrabber : MonoBehaviour
         }
         m_grabbedObj.GrabEnd(linearVelocity, angularVelocity);
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
+        
+        //TODO: Ignore collision if climbing with at least one hand.
         SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
         m_grabbedObj = null;
         m_grabbedRigidbody = null;

@@ -654,7 +654,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 15, y: 3}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.5205078, y: 0.5390625}
+  savedTextUV0: {x: 0.13134766, y: 0.2565918}
   savedFill: 0
 --- !u!114 &556149230
 MonoBehaviour:
@@ -753,6 +753,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 451191732, guid: 50e61cded5ec3b34f933d6dccefd6ad3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5641544177566101892, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -870,7 +874,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 7, y: 2}
   savedColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  savedTextUV0: {x: 0.21435547, y: 0.123535156}
+  savedTextUV0: {x: 0.171875, y: 0.29833984}
   savedFill: 0
 --- !u!114 &1816149744
 MonoBehaviour:
@@ -926,6 +930,7 @@ GameObject:
   - component: {fileID: 2084381897}
   - component: {fileID: 2084381896}
   - component: {fileID: 2084381895}
+  - component: {fileID: 2084381899}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1015,8 +1020,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 926178712}
-        m_MethodName: StartLevel
+      - m_Target: {fileID: 2084381899}
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1063,3 +1068,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084381893}
   m_CullTransparentMesh: 0
+--- !u!114 &2084381899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084381893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6697aa67728444e9b5ed1132c8363f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
