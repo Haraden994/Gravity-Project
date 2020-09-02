@@ -67,9 +67,6 @@ public class OVRGrabber : MonoBehaviour
     [SerializeField]
     protected GameObject m_player;
 
-    [SerializeField] 
-    private CanvasDebugger canvasDebugger;
-
     protected bool m_grabVolumeEnabled = true;
     protected Vector3 m_lastPos;
     protected Quaternion m_lastRot;
@@ -156,17 +153,6 @@ public class OVRGrabber : MonoBehaviour
 
     virtual public void FixedUpdate()
     {
-        /*
-        OVRPose localPose = new OVRPose { position = OVRInput.GetLocalControllerPosition(m_controller), orientation = OVRInput.GetLocalControllerRotation(m_controller) };
-        OVRPose offsetPose = new OVRPose { position = m_anchorOffsetPosition, orientation = m_anchorOffsetRotation };
-        localPose = localPose * offsetPose;
-
-        OVRPose trackingSpace = transform.ToOVRPose() * localPose.Inverse();
-        Vector3 linearAcceleration = OVRInput.GetLocalControllerAcceleration(m_controller);
-
-        canvasDebugger.UpdateAcceleration(linearAcceleration);
-        */
-        
         playerMomentum = playerRB.mass * playerRB.velocity;
 		if (m_operatingWithoutOVRCameraRig)
         {
@@ -202,8 +188,12 @@ public class OVRGrabber : MonoBehaviour
         {
             grabberPreviousPosition = dummyTransform.position;
             transform.position = dummyTransform.position;
-            Vector3 movementAmount = grabberPreviousPosition - m_parentTransform.TransformPoint(m_anchorOffsetPosition);
+            Vector3 movementAmount = grabberPreviousPosition - destPos;
+            Debug.Log(movementAmount.x + " " + movementAmount.y + " " + movementAmount.z);
+            Debug.Log("Before: " + climbingMovement);
+            //if(movementAmount.x > 0.0f && movementAmount.x <)
             climbingMovement += movementAmount;
+            Debug.Log("After: " + climbingMovement);
             playerRB.MovePosition(climbingMovement);
         }
 
@@ -371,6 +361,7 @@ public class OVRGrabber : MonoBehaviour
                 }
                 dummyTransform.parent = grabbedObject.transform;
                 grabberPreviousPosition = dummyTransform.position;
+                climbingMovement = playerRB.position;
             }
             if (isGrabbing)
             {
@@ -428,9 +419,6 @@ public class OVRGrabber : MonoBehaviour
             Vector3 grabbedVelocity = forceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
             Vector3 grabbedAngularVelocity = rotationalForceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
 
-            //Vector3[] vectorList = {linearVelocity, -linearAcceleration, forceApplied, grabbedVelocity};
-            //canvasDebugger.ShowVectorsInCanvas(vectorList);
-            
             //Third law of motion
             playerRB.velocity += (-forceApplied / playerRB.mass * Time.fixedDeltaTime);
             if (isClimbing)
