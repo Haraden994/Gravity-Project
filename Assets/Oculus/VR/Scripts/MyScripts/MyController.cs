@@ -24,10 +24,8 @@ public class MyController : MonoBehaviour
     [SerializeField]
     private float cameraDistanceThreshold = 0.55f;
     [SerializeField]
-    private float thumbstickDeadzoneX = 0.001f;
-    [SerializeField]
-    private float thumbstickDeadzoneY = 0.001f;
-    
+    private float thumbstickDeadzone = 0.005f;
+
     [Header("UI Components")]
     [SerializeField] 
     private GameObject inGameMenu;
@@ -35,10 +33,14 @@ public class MyController : MonoBehaviour
     private GameObject gameOverScreen;
     [SerializeField] 
     private GameObject outOfVrBodyUI;
-    [SerializeField] 
-    private Slider oxygenMeter;
     [SerializeField]
-    private Slider boostMeter;
+    private Image oxygenContainer;
+    [SerializeField]
+    private Image boostContainer;
+    [SerializeField]
+    private Image oxygenFill;
+    [SerializeField]
+    private Image boostFill;
     [SerializeField] 
     private Image heavyBreathing;
 
@@ -49,7 +51,7 @@ public class MyController : MonoBehaviour
     public float oxygenDepletionAmount = 0.1f;
     public float boostAmount = 100.0f;
     public float boostDepletionAmount = 0.1f;
-    public float timeToDie = 5.0f;
+    //public float timeToDie = 5.0f;
 
     private Vector3 camRotation;
     private Quaternion bodyRotation;
@@ -79,9 +81,8 @@ public class MyController : MonoBehaviour
         _rb = gameObject.GetComponent<Rigidbody>();
         pauseManager = FindObjectOfType<PauseManager>();
         
-        oxygenMeter.maxValue = oxygenAmount;
-        boostMeter.maxValue = boostAmount;
         breathingEffectColor = heavyBreathing.color;
+        baseColor = oxygenFill.color;
     }
 
     void Update()
@@ -90,9 +91,9 @@ public class MyController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         camRotation = cameraTransform.rotation.eulerAngles;
         bodyRotation = transform.rotation;
-        oxygenMeter.value = oxygenAmount;
-        boostMeter.value = boostAmount;
-        
+
+        ResourceMetersUpdate();
+
         if (!gameOver)
         {
             CheckPlayerInRange();
@@ -109,6 +110,34 @@ public class MyController : MonoBehaviour
     {
         if(!gameOver)
             ProcessInput();
+    }
+
+    private Color oxygenMeterColor;
+    private Color boostMeterColor;
+    private Color baseColor;
+    
+    void ResourceMetersUpdate()
+    {
+        oxygenFill.fillAmount = oxygenAmount / 100.0f * oxygenContainer.fillAmount;
+        boostFill.fillAmount = boostAmount / 100.0f * boostContainer.fillAmount;
+        
+        if (oxygenAmount <= 25.0f)
+        {
+            oxygenMeterColor = Color.Lerp(baseColor, Color.red, Mathf.Sin(Time.time * 15.0f));
+            oxygenContainer.color = oxygenMeterColor;
+            oxygenFill.color = oxygenMeterColor;
+        }
+
+        if (boostAmount <= 0.0f)
+        {
+            boostContainer.color = Color.red;
+        }
+        else if (boostAmount <= 35.0f)
+        {
+            boostMeterColor = Color.Lerp(baseColor, Color.red, Mathf.Sin(Time.time * 10.0f));
+            boostContainer.color = boostMeterColor;
+            boostFill.color = boostMeterColor;
+        }
     }
 
     void CheckPlayerInRange()
@@ -172,7 +201,7 @@ public class MyController : MonoBehaviour
             }
             breathingEffectColor.a = fade;
             heavyBreathing.color = breathingEffectColor;
-            if (maxFadeValue > fadeGameOverThreshold)
+            if (maxFadeValue > fadeGameOverThreshold && fade >= 1.0f)
             {
                 GameOver();
             }
@@ -270,14 +299,16 @@ public class MyController : MonoBehaviour
             }
             
             //Check if any Boost command is being executed
-            if (OVRInput.Get(OVRInput.Button.One) 
-                || OVRInput.Get(OVRInput.Button.Two) 
-                || OVRInput.Get(OVRInput.Button.Three) 
-                || OVRInput.Get(OVRInput.Button.Four) 
-                || primaryAxis.x != 0.0f || primaryAxis.y != 0.0f 
-                || secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f)
+            //TODO: Boost SFX
+            if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f)
+                boostAmount -= Time.deltaTime * boostDepletionAmount * (Mathf.Abs(primaryAxis.x) > Mathf.Abs(primaryAxis.y) ? Mathf.Abs(primaryAxis.x) : Mathf.Abs(primaryAxis.y));
+            else if (secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f)
+                boostAmount -= Time.deltaTime * boostDepletionAmount * (Mathf.Abs(secondaryAxis.x) > Mathf.Abs(secondaryAxis.y) ? Mathf.Abs(secondaryAxis.x) : Mathf.Abs(secondaryAxis.y));
+            else if (OVRInput.Get(OVRInput.Button.One)
+                     || OVRInput.Get(OVRInput.Button.Two)
+                     || OVRInput.Get(OVRInput.Button.Three)
+                     || OVRInput.Get(OVRInput.Button.Four))
             {
-                //TODO: Boost SFX
                 boostAmount -= Time.deltaTime * boostDepletionAmount;
             }
 
@@ -318,12 +349,12 @@ public class MyController : MonoBehaviour
     Vector2 ApplyDeadZones(Vector2 pos) {
 
         // X Axis
-        if ((pos.x > 0.0f && pos.x < thumbstickDeadzoneX) || (pos.x < 0.0f && pos.x > -thumbstickDeadzoneX)) {
+        if ((pos.x > 0.0f && pos.x < thumbstickDeadzone) || (pos.x < 0.0f && pos.x > -thumbstickDeadzone)) {
             pos = new Vector2(0.0f, pos.y);
         }
 
         // Y Positive
-        if ((pos.y > 0 && pos.y < thumbstickDeadzoneY) || (pos.y < 0 && pos.y > -thumbstickDeadzoneY)) {
+        if ((pos.y > 0 && pos.y < thumbstickDeadzone) || (pos.y < 0 && pos.y > -thumbstickDeadzone)) {
             pos = new Vector2(pos.x, 0.0f);
         }
 
