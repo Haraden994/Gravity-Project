@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using OVR;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +45,10 @@ public class MyController : MonoBehaviour
     [SerializeField] 
     private Image heavyBreathing;
 
+    [Header("Sound Effects")] 
+    [SerializeField]
+    private Transform headAudioTransform;
+
     [Header("Gameplay Values")]
     public float boostPower = 1.0f;
     public float brakePower = 1.0f;
@@ -58,28 +63,32 @@ public class MyController : MonoBehaviour
     private Rigidbody _rb;
     private PauseManager pauseManager;
     private Transform cameraTransform;
-    
+
     //Booleans
     private bool playerInRange = true;
     private bool menuOpened;
     private bool pauseOnce = true;
     private bool resumeOnce;
     private bool gameOver;
+    private bool fadeCheck = true;
+    private bool once = true;
     
     //Heavy Breathing animation and game over variables
     private float fade;
-    private bool fadeCheck = true;
     private float maxFadeValue = 0.6f;
     private float fadeIncrease = 0.2f;
     private float fadeGameOverThreshold = 1.6f;
     private float fadeInterpolator = 0.0f;
     private Color breathingEffectColor;
+    private AudioSource boosters;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody>();
         pauseManager = FindObjectOfType<PauseManager>();
+
+        boosters = headAudioTransform.gameObject.GetComponent<AudioSource>();
         
         breathingEffectColor = heavyBreathing.color;
         baseColor = oxygenFill.color;
@@ -130,6 +139,11 @@ public class MyController : MonoBehaviour
 
         if (boostAmount <= 0.0f)
         {
+            if (!once)
+            {
+                boosters.Stop();
+                once = true;
+            }
             boostContainer.color = Color.red;
         }
         else if (boostAmount <= 35.0f)
@@ -269,11 +283,11 @@ public class MyController : MonoBehaviour
             {
                 if (rightClimbing)
                 {
-                    rightHand.grabbedObject.grabbedRigidbody.AddForce(rightHand.grabbedObject.transform.up * boostPower);
+                    rightHand.grabbedObject.grabbedRigidbody.AddRelativeForce(rightHand.grabbedObject.transform.up * boostPower);
                 }
                 else if (leftClimbing)
                 {
-                    leftHand.grabbedObject.grabbedRigidbody.AddForce(leftHand.grabbedObject.transform.up * boostPower);
+                    leftHand.grabbedObject.grabbedRigidbody.AddRelativeForce(leftHand.grabbedObject.transform.up * boostPower);
                 }
                 else
                 {
@@ -300,6 +314,27 @@ public class MyController : MonoBehaviour
             
             //Check if any Boost command is being executed
             //TODO: Boost SFX
+            if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f || secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f
+                || OVRInput.Get(OVRInput.Button.One)
+                || OVRInput.Get(OVRInput.Button.Two)
+                || OVRInput.Get(OVRInput.Button.Three)
+                || OVRInput.Get(OVRInput.Button.Four))
+            {
+                if (once)
+                {
+                    boosters.Play();
+                    once = false;
+                }
+            }
+            else
+            {
+                if (!once)
+                {
+                    boosters.Stop();
+                    once = true;
+                }
+            }
+            
             if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f)
                 boostAmount -= Time.deltaTime * boostDepletionAmount * (Mathf.Abs(primaryAxis.x) > Mathf.Abs(primaryAxis.y) ? Mathf.Abs(primaryAxis.x) : Mathf.Abs(primaryAxis.y));
             else if (secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f)
@@ -343,6 +378,7 @@ public class MyController : MonoBehaviour
     void GameOver()
     {
         gameOver = true;
+        heavyBreathing.gameObject.SetActive(false);
         gameOverScreen.SetActive(true);
     }
         

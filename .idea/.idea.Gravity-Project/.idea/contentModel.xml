@@ -219,40 +219,6 @@
           <e p="UIOnTop.shader" t="Include" />
         </e>
         <e p="Oculus" t="Include">
-          <e p="AudioManager" t="Include">
-            <e p="Scenes" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="TestScript.cs" t="Include" />
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="Audio" t="Include">
-                <e p="AmbienceEmitter.cs" t="Include" />
-                <e p="AudioManager.cs" t="Include" />
-                <e p="AudioManager_Sound.cs" t="Include" />
-                <e p="Editor" t="Include">
-                  <e p="AudioImportPostProcessor.cs" t="Include" />
-                  <e p="AudioManagerInspector.cs" t="Include" />
-                  <e p="MinMaxPropertyDrawer.cs" t="Include" />
-                  <e p="MixerSnapshotPropertyDrawer.cs" t="Include" />
-                  <e p="OSPPropsPropertyDrawer.cs" t="Include" />
-                  <e p="SoundFXPropertyDrawer.cs" t="Include" />
-                  <e p="SoundFXRefPropertyDrawer.cs" t="Include" />
-                </e>
-                <e p="MinMaxAttribute.cs" t="Include" />
-                <e p="SoundEmitter.cs" t="Include" />
-                <e p="SoundFX.cs" t="Include" />
-                <e p="SoundFXRef.cs" t="Include" />
-              </e>
-              <e p="Utils" t="Include">
-                <e p="Editor" t="Include">
-                  <e p="DrawerInspectorNote.cs" t="Include" />
-                </e>
-                <e p="FastList.cs" t="Include" />
-                <e p="InspectorNoteAttribute.cs" t="Include" />
-              </e>
-            </e>
-          </e>
           <e p="Avatar" t="Include">
             <e p="Resources" t="Include">
               <e p="Materials" t="Include">
@@ -800,43 +766,6 @@
               </e>
             </e>
           </e>
-          <e p="Spatializer" t="Include">
-            <e p="Editor" t="Include">
-              <e p="ONSPAudioPluginUpdater.cs" t="Include" />
-              <e p="ONSPAudioPluginUpdaterStub.cs" t="Include" />
-              <e p="ONSPAudioSourceEditor.cs" t="Include" />
-              <e p="ONSPPropagationGeometryEditor.cs" t="Include" />
-              <e p="ONSPPropagationMaterialEditor.cs" t="Include" />
-              <e p="ONSPPropagationSerializationManager.cs" t="Include" />
-              <e p="ONSPReflectionCustomGUI.cs" t="Include" />
-            </e>
-            <e p="Scenes" t="Include">
-              <e p="Standard Assets" t="Include">
-                <e p="Character Controllers" t="Include">
-                  <e p="Sources" t="Include">
-                    <e p="Scripts" t="Include">
-                      <e p="MouseLook.cs" t="Include" />
-                    </e>
-                  </e>
-                </e>
-              </e>
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="Helpers" t="Include">
-                <e p="ONSPReflectionZone.cs" t="Include" />
-              </e>
-              <e p="OculusSpatializerUnity.cs" t="Include" />
-              <e p="ONSPAmbisonicsNative.cs" t="Include" />
-              <e p="ONSPAudioSource.cs" t="Include" />
-              <e p="ONSPProfiler.cs" t="Include" />
-              <e p="ONSPPropagationGeometry.cs" t="Include" />
-              <e p="ONSPPropagationInterface.cs" t="Include" />
-              <e p="ONSPPropagationMaterial.cs" t="Include" />
-              <e p="ONSPPropagationSettings.cs" t="Include" />
-              <e p="ONSPSettings.cs" t="Include" />
-              <e p="ONSPVersion.cs" t="Include" />
-            </e>
-          </e>
           <e p="VR" t="Include">
             <e p="Editor" t="Include">
               <e p="AndroidManifest.OVRSubmission.xml" t="Include" />
@@ -884,6 +813,24 @@
               <e p="Unlit Transparent Color.shader" t="Include" />
             </e>
             <e p="Scripts" t="Include">
+              <e p="Audio" t="Include">
+                <e p="AmbienceEmitter.cs" t="Include" />
+                <e p="AudioManager.cs" t="Include" />
+                <e p="AudioManager_Sound.cs" t="Include" />
+                <e p="Editor" t="Include">
+                  <e p="AudioImportPostProcessor.cs" t="Include" />
+                  <e p="AudioManagerInspector.cs" t="Include" />
+                  <e p="MinMaxPropertyDrawer.cs" t="Include" />
+                  <e p="MixerSnapshotPropertyDrawer.cs" t="Include" />
+                  <e p="OSPPropsPropertyDrawer.cs" t="Include" />
+                  <e p="SoundFXPropertyDrawer.cs" t="Include" />
+                  <e p="SoundFXRefPropertyDrawer.cs" t="Include" />
+                </e>
+                <e p="MinMaxAttribute.cs" t="Include" />
+                <e p="SoundEmitter.cs" t="Include" />
+                <e p="SoundFX.cs" t="Include" />
+                <e p="SoundFXRef.cs" t="Include" />
+              </e>
               <e p="Composition" t="Include">
                 <e p="OVRCameraComposition.cs" t="Include" />
                 <e p="OVRComposition.cs" t="Include" />
@@ -971,11 +918,55 @@
                 <e p="OVRVignette.cs" t="Include" />
                 <e p="OVRWaitCursor.cs" t="Include" />
               </e>
+              <e p="Utils" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="DrawerInspectorNote.cs" t="Include" />
+                </e>
+                <e p="FastList.cs" t="Include" />
+                <e p="InspectorNoteAttribute.cs" t="Include" />
+              </e>
             </e>
             <e p="Shaders" t="Include">
               <e p="OVRColorRampAlpha.shader" t="Include" />
               <e p="OVRVignette.shader" t="Include" />
               <e p="Unlit Crosshair.shader" t="Include" />
+            </e>
+            <e p="Spatializer" t="Include">
+              <e p="Editor" t="Include">
+                <e p="ONSPAudioPluginUpdater.cs" t="Include" />
+                <e p="ONSPAudioPluginUpdaterStub.cs" t="Include" />
+                <e p="ONSPAudioSourceEditor.cs" t="Include" />
+                <e p="ONSPPropagationGeometryEditor.cs" t="Include" />
+                <e p="ONSPPropagationMaterialEditor.cs" t="Include" />
+                <e p="ONSPPropagationSerializationManager.cs" t="Include" />
+                <e p="ONSPReflectionCustomGUI.cs" t="Include" />
+              </e>
+              <e p="Scenes" t="Include">
+                <e p="Standard Assets" t="Include">
+                  <e p="Character Controllers" t="Include">
+                    <e p="Sources" t="Include">
+                      <e p="Scripts" t="Include">
+                        <e p="MouseLook.cs" t="Include" />
+                      </e>
+                    </e>
+                  </e>
+                </e>
+              </e>
+              <e p="Scripts" t="Include">
+                <e p="Helpers" t="Include">
+                  <e p="ONSPReflectionZone.cs" t="Include" />
+                </e>
+                <e p="OculusSpatializerUnity.cs" t="Include" />
+                <e p="ONSPAmbisonicsNative.cs" t="Include" />
+                <e p="ONSPAudioSource.cs" t="Include" />
+                <e p="ONSPProfiler.cs" t="Include" />
+                <e p="ONSPPropagationGeometry.cs" t="Include" />
+                <e p="ONSPPropagationInterface.cs" t="Include" />
+                <e p="ONSPPropagationMaterial.cs" t="Include" />
+                <e p="ONSPPropagationSettings.cs" t="Include" />
+                <e p="ONSPSettings.cs" t="Include" />
+                <e p="ONSPVersion.cs" t="Include" />
+              </e>
             </e>
             <e p="ThirdParty" t="Include">
               <e p="openvr_api.cs" t="Include" />
@@ -992,6 +983,22 @@
             <e p="SyntyStudios_Planet.shader" t="Include" />
             <e p="SyntyStudios_Planet_Lines.shader" t="Include" />
             <e p="SyntyStudios_Triplanar_ObjectSpace.shader" t="Include" />
+          </e>
+        </e>
+        <e p="Sounds" t="Include">
+          <e p="Universal Sound FX" t="Include">
+            <e p="#Game Genre References" t="Include">
+              <e p="8bit and Retro.txt" t="Include" />
+              <e p="Fighting.txt" t="Include" />
+              <e p="First Person Shooter (FPS).txt" t="Include" />
+              <e p="Physics.txt" t="Include" />
+              <e p="Platform.txt" t="Include" />
+              <e p="Puzzle.txt" t="Include" />
+              <e p="Real Time Stategy (RTS) Medieval.txt" t="Include" />
+              <e p="Real Time Stategy (RTS) Sci-Fi.txt" t="Include" />
+              <e p="Shoot em Up.txt" t="Include" />
+            </e>
+            <e p="version_history.txt" t="Include" />
           </e>
         </e>
         <e p="Stagit" t="Include">

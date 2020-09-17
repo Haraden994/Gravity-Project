@@ -95,6 +95,8 @@ public class OVRGrabber : MonoBehaviour
     private Vector3 grabberPreviousPosition;
     private Vector3 climbingMovement = Vector3.zero;
 
+    private AudioSource grabSFX;
+
     /// <summary>
     /// The currently grabbed object.
     /// </summary>
@@ -142,6 +144,9 @@ public class OVRGrabber : MonoBehaviour
         {
 			m_parentTransform = gameObject.transform;
         }
+
+        grabSFX = m_parentTransform.GetComponentInChildren<AudioSource>();
+        
 		// We're going to setup the player collision to ignore the hand collision.
 		SetPlayerIgnoreCollision(gameObject, true);
     }
@@ -294,9 +299,11 @@ public class OVRGrabber : MonoBehaviour
 
         // Disable grab volumes to prevent overlaps
         GrabVolumeEnable(false);
-
+        
         if (closestGrabbable != null)
         {
+            grabSFX.Play();
+            
             if (closestGrabbable.isGrabbed)
             {
                 closestGrabbable.grabbedBy.OffhandGrabbed(closestGrabbable);
