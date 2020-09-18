@@ -92,6 +92,8 @@ public class OVRGrabber : MonoBehaviour
     public bool isGrabbing = false;
     [HideInInspector]
     public bool isClimbing = false;
+    [HideInInspector]
+    public bool collisionCheck;
     private Vector3 grabberPreviousPosition;
     private Vector3 climbingMovement = Vector3.zero;
 
@@ -194,11 +196,7 @@ public class OVRGrabber : MonoBehaviour
             grabberPreviousPosition = dummyTransform.position;
             transform.position = dummyTransform.position;
             Vector3 movementAmount = grabberPreviousPosition - destPos;
-            Debug.Log(movementAmount.x + " " + movementAmount.y + " " + movementAmount.z);
-            Debug.Log("Before: " + climbingMovement);
-            //if(movementAmount.x > 0.0f && movementAmount.x <)
             climbingMovement += movementAmount;
-            Debug.Log("After: " + climbingMovement);
             playerRB.MovePosition(climbingMovement);
         }
 

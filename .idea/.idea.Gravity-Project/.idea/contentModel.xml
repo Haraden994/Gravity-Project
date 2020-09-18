@@ -975,6 +975,26 @@
             </e>
           </e>
         </e>
+        <e p="Plawius-NonConvexCollider" t="Include">
+          <e p="API" t="Include">
+            <e p="NonConvexColliderAPI.cs" t="Include" />
+            <e p="NonConvexColliderInterop.cs" t="Include" />
+            <e p="NonConvexColliderRuntimeAPI.asmdef" t="Include" />
+          </e>
+          <e p="Editor" t="Include">
+            <e p="NonConvexColliderComponentEditor.cs" t="Include" />
+            <e p="NonConvexColliderMenus.cs" t="Include" />
+            <e p="NonConvexColliderUnityExt.cs" t="Include" />
+            <e p="NonConvexEditor.asmdef" t="Include" />
+          </e>
+          <e p="NonConvexCollider.asmdef" t="Include" />
+          <e p="NonConvexColliderAsset.cs" t="Include" />
+          <e p="NonConvexColliderComponent.cs" t="Include" />
+          <e p="RuntimeDemo" t="Include">
+            <e p="RuntimeTest.cs" t="Include" />
+            <e p="RuntimeTestAssembly.asmdef" t="Include" />
+          </e>
+        </e>
         <e p="PolygonSciFiSpace" t="Include">
           <e p="Shaders" t="Include">
             <e p="POLYGON_SpaceShip_Rim.shader" t="Include" />
@@ -983,22 +1003,6 @@
             <e p="SyntyStudios_Planet.shader" t="Include" />
             <e p="SyntyStudios_Planet_Lines.shader" t="Include" />
             <e p="SyntyStudios_Triplanar_ObjectSpace.shader" t="Include" />
-          </e>
-        </e>
-        <e p="Sounds" t="Include">
-          <e p="Universal Sound FX" t="Include">
-            <e p="#Game Genre References" t="Include">
-              <e p="8bit and Retro.txt" t="Include" />
-              <e p="Fighting.txt" t="Include" />
-              <e p="First Person Shooter (FPS).txt" t="Include" />
-              <e p="Physics.txt" t="Include" />
-              <e p="Platform.txt" t="Include" />
-              <e p="Puzzle.txt" t="Include" />
-              <e p="Real Time Stategy (RTS) Medieval.txt" t="Include" />
-              <e p="Real Time Stategy (RTS) Sci-Fi.txt" t="Include" />
-              <e p="Shoot em Up.txt" t="Include" />
-            </e>
-            <e p="version_history.txt" t="Include" />
           </e>
         </e>
         <e p="Stagit" t="Include">
@@ -1012,6 +1016,9 @@
         </e>
       </e>
       <e p="Gravity-Project.sln" t="IncludeFlat" />
+      <e p="NonConvexCollider.csproj" t="IncludeRecursive" />
+      <e p="NonConvexColliderRuntimeAPI.csproj" t="IncludeRecursive" />
+      <e p="NonConvexEditor.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Oculus.Platform.csproj" t="IncludeRecursive" />
       <e p="Oculus.Platform.Editor.csproj" t="IncludeRecursive" />
@@ -1019,6 +1026,7 @@
       <e p="Oculus.VR.Editor.csproj" t="IncludeRecursive" />
       <e p="Oculus.VR.Scripts.Editor.csproj" t="IncludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
+      <e p="RuntimeTestAssembly.csproj" t="IncludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
   </component>

@@ -89,7 +89,7 @@ BoxCollider:
   m_GameObject: {fileID: 8314660360859801558}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 8314660361117667275}
   - component: {fileID: 8314660361117667277}
   - component: {fileID: 8314660361117667274}
+  - component: {fileID: 424474634}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -146,20 +147,22 @@ MonoBehaviour:
   neckThreshold: 45
   bodyRotationSpeed: 2
   cameraDistanceThreshold: 0.6
-  thumbstickDeadzoneX: 0.001
-  thumbstickDeadzoneY: 0.001
+  thumbstickDeadzone: 0.005
   inGameMenu: {fileID: 0}
+  gameOverScreen: {fileID: 0}
   outOfVrBodyUI: {fileID: 0}
-  oxygenMeter: {fileID: 0}
-  boostMeter: {fileID: 0}
+  oxygenContainer: {fileID: 0}
+  boostContainer: {fileID: 0}
+  oxygenFill: {fileID: 0}
+  boostFill: {fileID: 0}
   heavyBreathing: {fileID: 0}
-  boostPower: 1
+  headAudioTransform: {fileID: 0}
+  boostPower: 5
   brakePower: 2
   oxygenAmount: 100
-  oxygenDepletionAmount: 0.1
+  oxygenDepletionAmount: 1
   boostAmount: 100
-  boostDepletionAmount: 0.1
-  timeToDie: 5
+  boostDepletionAmount: 5
 --- !u!54 &8314660361117667274
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -174,5 +177,19 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &424474634
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314660361117667272}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1.3
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.18, z: 0}

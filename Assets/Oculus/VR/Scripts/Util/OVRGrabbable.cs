@@ -121,8 +121,9 @@ public class OVRGrabbable : MonoBehaviour
 	/// </summary>
 	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
-        m_grabbedBy = hand;
+	    m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
+        m_grabbedBy.collisionCheck = true;
         if (climbable)
 	        m_grabbedBy.isClimbing = true;
         else
@@ -138,7 +139,8 @@ public class OVRGrabbable : MonoBehaviour
 	/// Notifies the object that it has been released.
 	/// </summary>
 	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
-    {
+	{
+		m_grabbedBy.collisionCheck = false;
 	    _rb.isKinematic = m_grabbedKinematic;
 	    if (climbable)
 	    {

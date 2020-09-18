@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using OVR;
 using Unity.Collections;
@@ -28,8 +29,6 @@ public class MyController : MonoBehaviour
     private float thumbstickDeadzone = 0.005f;
 
     [Header("UI Components")]
-    [SerializeField] 
-    private GameObject inGameMenu;
     [SerializeField]
     private GameObject gameOverScreen;
     [SerializeField] 
@@ -45,9 +44,15 @@ public class MyController : MonoBehaviour
     [SerializeField] 
     private Image heavyBreathing;
 
-    [Header("Sound Effects")] 
+    [Header("Booster Effects")] 
     [SerializeField]
-    private Transform headAudioTransform;
+    private AudioSource leftBoosterSFX;
+    [SerializeField]
+    private AudioSource rightBoosterSFX;
+    [SerializeField] 
+    private ParticleSystem leftBoosterVFX;
+    [SerializeField] 
+    private ParticleSystem rightBoosterVFX;
 
     [Header("Gameplay Values")]
     public float boostPower = 1.0f;
@@ -61,6 +66,7 @@ public class MyController : MonoBehaviour
     private Vector3 camRotation;
     private Quaternion bodyRotation;
     private Rigidbody _rb;
+    private CapsuleCollider _cc;
     private PauseManager pauseManager;
     private Transform cameraTransform;
 
@@ -72,6 +78,11 @@ public class MyController : MonoBehaviour
     private bool gameOver;
     private bool fadeCheck = true;
     private bool once = true;
+    private bool onceLeft = true;
+    private bool onceRight = true;
+    private bool somethingInside;
+    private bool leftClimbing;
+    private bool rightClimbing;
     
     //Heavy Breathing animation and game over variables
     private float fade;
@@ -80,16 +91,14 @@ public class MyController : MonoBehaviour
     private float fadeGameOverThreshold = 1.6f;
     private float fadeInterpolator = 0.0f;
     private Color breathingEffectColor;
-    private AudioSource boosters;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = gameObject.GetComponent<Rigidbody>();
+        _cc = gameObject.GetComponent<CapsuleCollider>();
         pauseManager = FindObjectOfType<PauseManager>();
 
-        boosters = headAudioTransform.gameObject.GetComponent<AudioSource>();
-        
         breathingEffectColor = heavyBreathing.color;
         baseColor = oxygenFill.color;
     }
@@ -101,6 +110,17 @@ public class MyController : MonoBehaviour
         camRotation = cameraTransform.rotation.eulerAngles;
         bodyRotation = transform.rotation;
 
+        if (leftHand.collisionCheck || rightHand.collisionCheck)
+        {
+            _cc.isTrigger = true;
+        }
+        else if(!somethingInside)
+        {
+            _cc.isTrigger = false;
+        }
+
+        ProcessInput();
+        
         ResourceMetersUpdate();
 
         if (!gameOver)
@@ -118,7 +138,17 @@ public class MyController : MonoBehaviour
     void FixedUpdate()
     {
         if(!gameOver)
-            ProcessInput();
+            ProcessInputPhysics();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        somethingInside = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        somethingInside = false;
     }
 
     private Color oxygenMeterColor;
@@ -139,10 +169,13 @@ public class MyController : MonoBehaviour
 
         if (boostAmount <= 0.0f)
         {
-            if (!once)
+            if (once)
             {
-                boosters.Stop();
-                once = true;
+                leftBoosterSFX.Stop();
+                rightBoosterSFX.Stop();
+                leftBoosterVFX.Stop();
+                rightBoosterVFX.Stop();
+                once = false;
             }
             boostContainer.color = Color.red;
         }
@@ -183,7 +216,7 @@ public class MyController : MonoBehaviour
     void HandleOxygen()
     {
         //Oxygen Handling
-        if (playerInRange && !menuOpened && oxygenAmount > 0.0f)
+        if (playerInRange && !pauseManager.IsPaused() && oxygenAmount > 0.0f)
         {
             oxygenAmount -= Time.deltaTime * oxygenDepletionAmount;
         }
@@ -235,118 +268,41 @@ public class MyController : MonoBehaviour
             }
         }
     }
-    
+
     void ProcessInput()
     {
-        Vector2 primaryAxis = ApplyDeadZones(OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick));
-        Vector2 secondaryAxis = ApplyDeadZones(OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick));
-        bool rightClimbing = rightHand.isClimbing;
-        bool leftClimbing = leftHand.isClimbing;
-
-        if (playerInRange && !menuOpened && boostAmount > 0.0f)
+        rightClimbing = rightHand.isClimbing;
+        leftClimbing = leftHand.isClimbing;
+        if (playerInRange && !pauseManager.IsPaused())
         {
-            //Boost towards Thumbstick direction
-            if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f)
+            if (boostAmount > 0.0f)
             {
-                if (rightClimbing)
+                //Audio SFX management
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
                 {
-                    rightHand.grabbedObject.grabbedRigidbody.AddRelativeForce(new Vector3(primaryAxis.x, 0.0f, primaryAxis.y) * boostPower);
+                    leftBoosterSFX.Play();
+                    leftBoosterVFX.Play();
                 }
-                else if (leftClimbing)
-                {
-                    leftHand.grabbedObject.grabbedRigidbody.AddRelativeForce(new Vector3(primaryAxis.x, 0.0f, primaryAxis.y) * boostPower);
-                }
-                else
-                {
-                    _rb.AddRelativeForce(new Vector3(primaryAxis.x, 0.0f, primaryAxis.y) * boostPower);
-                }
-                
-            }
-            else if (secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f)
-            {
-                if (rightClimbing)
-                {
-                    rightHand.grabbedObject.grabbedRigidbody.AddRelativeForce(new Vector3(secondaryAxis.x, 0.0f, secondaryAxis.y) * boostPower);
-                }
-                else if (leftClimbing)
-                {
-                    leftHand.grabbedObject.grabbedRigidbody.AddRelativeForce(new Vector3(secondaryAxis.x, 0.0f, secondaryAxis.y) * boostPower);
-                }
-                else
-                {
-                    _rb.AddRelativeForce(new Vector3(secondaryAxis.x, 0.0f, secondaryAxis.y) * boostPower);
-                }
-            }
-            
-            //Boost UP
-            if (OVRInput.Get(OVRInput.Button.Two) || OVRInput.Get(OVRInput.Button.Four))
-            {
-                if (rightClimbing)
-                {
-                    rightHand.grabbedObject.grabbedRigidbody.AddRelativeForce(rightHand.grabbedObject.transform.up * boostPower);
-                }
-                else if (leftClimbing)
-                {
-                    leftHand.grabbedObject.grabbedRigidbody.AddRelativeForce(leftHand.grabbedObject.transform.up * boostPower);
-                }
-                else
-                {
-                    _rb.AddForce(transform.up * boostPower);
-                }
-            }
-            
-            //Boost DOWN
-            if (OVRInput.Get(OVRInput.Button.One) || OVRInput.Get(OVRInput.Button.Three))
-            {
-                if (rightClimbing)
-                {
-                    rightHand.grabbedObject.grabbedRigidbody.AddForce(-rightHand.grabbedObject.transform.up * boostPower);
-                }
-                else if (leftClimbing)
-                {
-                    leftHand.grabbedObject.grabbedRigidbody.AddForce(-leftHand.grabbedObject.transform.up * boostPower);
-                }
-                else
-                {
-                    _rb.AddForce(-transform.up * boostPower);
-                }
-            }
-            
-            //Check if any Boost command is being executed
-            //TODO: Boost SFX
-            if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f || secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f
-                || OVRInput.Get(OVRInput.Button.One)
-                || OVRInput.Get(OVRInput.Button.Two)
-                || OVRInput.Get(OVRInput.Button.Three)
-                || OVRInput.Get(OVRInput.Button.Four))
-            {
-                if (once)
-                {
-                    boosters.Play();
-                    once = false;
-                }
-            }
-            else
-            {
-                if (!once)
-                {
-                    boosters.Stop();
-                    once = true;
-                }
-            }
-            
-            if (primaryAxis.x != 0.0f || primaryAxis.y != 0.0f)
-                boostAmount -= Time.deltaTime * boostDepletionAmount * (Mathf.Abs(primaryAxis.x) > Mathf.Abs(primaryAxis.y) ? Mathf.Abs(primaryAxis.x) : Mathf.Abs(primaryAxis.y));
-            else if (secondaryAxis.x != 0.0f || secondaryAxis.y != 0.0f)
-                boostAmount -= Time.deltaTime * boostDepletionAmount * (Mathf.Abs(secondaryAxis.x) > Mathf.Abs(secondaryAxis.y) ? Mathf.Abs(secondaryAxis.x) : Mathf.Abs(secondaryAxis.y));
-            else if (OVRInput.Get(OVRInput.Button.One)
-                     || OVRInput.Get(OVRInput.Button.Two)
-                     || OVRInput.Get(OVRInput.Button.Three)
-                     || OVRInput.Get(OVRInput.Button.Four))
-            {
-                boostAmount -= Time.deltaTime * boostDepletionAmount;
-            }
 
+                if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+                {
+                    leftBoosterSFX.Stop();
+                    leftBoosterVFX.Stop();
+                }
+
+                if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+                {
+                    rightBoosterSFX.Play();
+                    rightBoosterVFX.Play();
+                }
+
+                if (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
+                {
+                    rightBoosterSFX.Stop();
+                    rightBoosterVFX.Stop();
+                }
+            }
+            
             //Brake
             if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick) || OVRInput.Get(OVRInput.Button.SecondaryThumbstick))
             {
@@ -357,21 +313,51 @@ public class MyController : MonoBehaviour
                 }
             }
         }
-
-        if (OVRInput.GetDown(OVRInput.Button.Start))
+    }
+    
+    void ProcessInputPhysics()
+    {
+        if (playerInRange && !pauseManager.IsPaused() && boostAmount > 0.0f)
         {
-            menuOpened = !menuOpened;
-
-            if (menuOpened)
+            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
             {
-                pauseManager.Pause();
-            }
-            else
-            {
-                pauseManager.Resume();
+                var axis = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
+                
+                if (rightClimbing)
+                {
+                    rightHand.grabbedObject.grabbedRigidbody.AddForce(leftHand.transform.forward * (boostPower * axis));
+                }
+                else if (leftClimbing)
+                {
+                    leftHand.grabbedObject.grabbedRigidbody.AddForce(leftHand.transform.forward * (boostPower * axis));
+                }
+                else
+                {
+                    _rb.AddForce(leftHand.transform.forward * (boostPower * axis));
+                }
+                //Consume boost
+                boostAmount -= Time.deltaTime * (boostDepletionAmount * axis);
             }
             
-            inGameMenu.SetActive(menuOpened);
+            if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+            {
+                var axis = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+
+                if (rightClimbing)
+                {
+                    rightHand.grabbedObject.grabbedRigidbody.AddForce(rightHand.transform.forward * (boostPower * axis));
+                }
+                else if (leftClimbing)
+                {
+                    leftHand.grabbedObject.grabbedRigidbody.AddForce(rightHand.transform.forward * (boostPower * axis));
+                }
+                else
+                {
+                    _rb.AddForce(rightHand.transform.forward * (boostPower * axis));
+                }
+                
+                boostAmount -= Time.deltaTime * (boostDepletionAmount * axis);
+            }
         }
     }
 
