@@ -850,9 +850,11 @@
                 <e p="OVRProjectConfigEditor.cs" t="Include" />
               </e>
               <e p="MyScripts" t="Include">
+                <e p="AutoText.cs" t="Include" />
                 <e p="CanvasDebugger.cs" t="Include" />
                 <e p="DriftingObject.cs" t="Include" />
                 <e p="GameManager.cs" t="Include" />
+                <e p="LevelGoal.cs" t="Include" />
                 <e p="MyButton.cs" t="Include" />
                 <e p="MyController.cs" t="Include" />
                 <e p="PauseManager.cs" t="Include" />

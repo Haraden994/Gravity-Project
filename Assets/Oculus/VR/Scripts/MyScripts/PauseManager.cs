@@ -15,6 +15,7 @@ public class PauseManager : MonoBehaviour
     public bool isTutorial;
 
     private bool paused;
+    private bool menuOpened;
     private bool once = true;
 
     void Start()
@@ -36,9 +37,9 @@ public class PauseManager : MonoBehaviour
         {
             if (OVRInput.GetDown(OVRInput.Button.Start))
             {
-                paused = !paused;
+                menuOpened = !menuOpened;
 
-                if (paused)
+                if (menuOpened)
                 {
                     Pause();
                 }
@@ -47,7 +48,7 @@ public class PauseManager : MonoBehaviour
                     Resume();
                 }
 
-                inGameMenu.SetActive(paused);
+                inGameMenu.SetActive(menuOpened);
             }
         }
     }
@@ -57,14 +58,16 @@ public class PauseManager : MonoBehaviour
         return paused;
     }
     
-    public void CloseTutorial()
+    public void CloseTutorial(bool resume)
     {
-        Resume();
+        if(resume)
+            Resume();
         isTutorial = false;
     }
 
     public void Pause()
     {
+        paused = true;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
             velocities[i] = rigidbodies[i].velocity;
@@ -76,6 +79,7 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
+        paused = false;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
             rigidbodies[i].velocity = velocities[i];

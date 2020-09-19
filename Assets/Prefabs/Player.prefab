@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8314660360859801561
 Transform:
   m_ObjectHideFlags: 0
@@ -148,7 +148,6 @@ MonoBehaviour:
   bodyRotationSpeed: 2
   cameraDistanceThreshold: 0.6
   thumbstickDeadzone: 0.005
-  inGameMenu: {fileID: 0}
   gameOverScreen: {fileID: 0}
   outOfVrBodyUI: {fileID: 0}
   oxygenContainer: {fileID: 0}
@@ -156,8 +155,11 @@ MonoBehaviour:
   oxygenFill: {fileID: 0}
   boostFill: {fileID: 0}
   heavyBreathing: {fileID: 0}
-  headAudioTransform: {fileID: 0}
-  boostPower: 5
+  leftBoosterSFX: {fileID: 0}
+  rightBoosterSFX: {fileID: 0}
+  leftBoosterVFX: {fileID: 0}
+  rightBoosterVFX: {fileID: 0}
+  boostPower: 3
   brakePower: 2
   oxygenAmount: 100
   oxygenDepletionAmount: 1
@@ -190,6 +192,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.15
-  m_Height: 1.3
+  m_Height: 1.15
   m_Direction: 1
-  m_Center: {x: 0, y: -0.18, z: 0}
+  m_Center: {x: 0, y: -0.25, z: 0}
