@@ -7,16 +7,19 @@ using UnityEngine.UI;
 public class AutoText : MonoBehaviour
 {
     public float letterPause = 0.2f;
-    public bool isOnEnable;
+    public GameObject skipButton;
+    public GameObject trueButton;
+    
     private AudioSource sfx;
 
     private string message;
     private Text textComp;
 
     private bool once = true;
- 
+    private bool skipped;
+
     // Use this for initialization
-    void Start () {
+    void OnEnable () {
         
         textComp = GetComponent<Text>();
         sfx = GetComponent<AudioSource>();
@@ -26,16 +29,18 @@ public class AutoText : MonoBehaviour
         StartCoroutine(TypeText());
     }
 
-    /*private void OnEnable()
+    private void OnDisable()
     {
-        message = textComp.text;
-        textComp.text = "";
-        StartCoroutine(TypeText());
-    }*/
+        textComp.text = message;
+    }
 
     IEnumerator TypeText()
     {
-        for (int i = 0; i < message.Length; i++){
+        for (int i = 0; i < message.Length; i++)
+        {
+            if (skipped)
+                break;
+            
             textComp.text += message[i];
             if (sfx)
             {
@@ -46,9 +51,30 @@ public class AutoText : MonoBehaviour
                 if (i == message.Length - 1)
                     sfx.Stop();
             }
-
-            yield return 0;
+            
+            if(skipButton && trueButton)
+                Check();
+            
             yield return new WaitForSeconds(letterPause);
+        }
+    }
+
+    public void Skip()
+    {
+        skipButton.SetActive(false);
+        if(trueButton)
+            trueButton.SetActive(true);
+        
+        skipped = true;
+        textComp.text = message;
+    }
+
+    void Check()
+    {
+        if (textComp.text.Equals(message))
+        {
+            skipButton.SetActive(false);
+            trueButton.SetActive(true);
         }
     }
 }

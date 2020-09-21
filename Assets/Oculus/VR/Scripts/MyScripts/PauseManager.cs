@@ -7,12 +7,14 @@ public class PauseManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject inGameMenu;
+    [SerializeField] 
+    private GameObject tutorial;
     
     private Rigidbody[] rigidbodies;
     private Vector3[] velocities;
     private Vector3[] angularVelocities;
     
-    public bool isTutorial;
+    public bool startPaused;
 
     private bool paused;
     private bool menuOpened;
@@ -27,42 +29,36 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (isTutorial && once)
+        if (startPaused && once)
         {
             once = false;
             Pause();
         }
 
-        if (!isTutorial)
+        if (OVRInput.GetDown(OVRInput.Button.Start))
         {
-            if (OVRInput.GetDown(OVRInput.Button.Start))
+            menuOpened = !menuOpened;
+
+            if (menuOpened)
             {
-                menuOpened = !menuOpened;
-
-                if (menuOpened)
-                {
-                    Pause();
-                }
-                else
-                {
-                    Resume();
-                }
-
-                inGameMenu.SetActive(menuOpened);
+                Pause();
             }
+            else
+            {
+                Resume();
+            }
+
+            if (tutorial)
+            {
+                tutorial.SetActive(!menuOpened);
+            }
+            inGameMenu.SetActive(menuOpened);
         }
     }
 
     public bool IsPaused()
     {
         return paused;
-    }
-    
-    public void CloseTutorial(bool resume)
-    {
-        if(resume)
-            Resume();
-        isTutorial = false;
     }
 
     public void Pause()

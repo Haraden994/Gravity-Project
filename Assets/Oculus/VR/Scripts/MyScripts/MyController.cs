@@ -33,6 +33,8 @@ public class MyController : MonoBehaviour
     private GameObject gameOverScreen;
     [SerializeField] 
     private GameObject outOfVrBodyUI;
+    [SerializeField] 
+    private GameObject UIComponents;
     [SerializeField]
     private Image oxygenContainer;
     [SerializeField]
@@ -83,6 +85,7 @@ public class MyController : MonoBehaviour
     private bool somethingInside;
     private bool leftClimbing;
     private bool rightClimbing;
+    private bool wasPaused;
     
     //Heavy Breathing animation and game over variables
     private float fade;
@@ -195,7 +198,13 @@ public class MyController : MonoBehaviour
             playerInRange = false;
             if(pauseOnce){
                 outOfVrBodyUI.SetActive(true);
-                pauseManager.Pause();
+                UIComponents.SetActive(false);
+                
+                if (!pauseManager.IsPaused())
+                    pauseManager.Pause();
+                else
+                    wasPaused = true;
+                
                 pauseOnce = false;
                 resumeOnce = true;
             }
@@ -206,7 +215,14 @@ public class MyController : MonoBehaviour
             if (resumeOnce)
             {
                 outOfVrBodyUI.SetActive(false);
-                pauseManager.Resume();
+                UIComponents.SetActive(true);
+                
+                if (!wasPaused)
+                {
+                    pauseManager.Resume();
+                    wasPaused = false;
+                }
+
                 resumeOnce = false;
                 pauseOnce = true;
             }

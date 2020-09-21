@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 424474634}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   thumbstickDeadzone: 0.005
   gameOverScreen: {fileID: 0}
   outOfVrBodyUI: {fileID: 0}
+  UIComponents: {fileID: 0}
   oxygenContainer: {fileID: 0}
   boostContainer: {fileID: 0}
   oxygenFill: {fileID: 0}
