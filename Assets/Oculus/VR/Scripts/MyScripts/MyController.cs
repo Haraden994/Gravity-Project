@@ -24,13 +24,15 @@ public class MyController : MonoBehaviour
     [SerializeField] 
     private float bodyRotationSpeed = 2.0f;
     [SerializeField]
-    private float cameraDistanceThreshold = 0.55f;
+    private float cameraDistanceThreshold = 0.7f;
     [SerializeField]
     private float thumbstickDeadzone = 0.005f;
 
     [Header("UI Components")]
     [SerializeField]
     private GameObject gameOverScreen;
+    [SerializeField] 
+    private GameObject victoryScreen;
     [SerializeField] 
     private GameObject outOfVrBodyUI;
     [SerializeField] 
@@ -79,7 +81,7 @@ public class MyController : MonoBehaviour
     private bool resumeOnce;
     private bool gameOver;
     private bool fadeCheck = true;
-    private bool once = true;
+    private bool onceBoost = true;
     private bool onceLeft = true;
     private bool onceRight = true;
     private bool somethingInside;
@@ -122,12 +124,11 @@ public class MyController : MonoBehaviour
             _cc.isTrigger = false;
         }
 
-        ProcessInput();
-        
         ResourceMetersUpdate();
 
         if (!gameOver)
         {
+            ProcessInput();
             CheckPlayerInRange();
             HandleOxygen();
         }
@@ -172,13 +173,13 @@ public class MyController : MonoBehaviour
 
         if (boostAmount <= 0.0f)
         {
-            if (once)
+            if (onceBoost)
             {
                 leftBoosterSFX.Stop();
                 rightBoosterSFX.Stop();
                 leftBoosterVFX.Stop();
                 rightBoosterVFX.Stop();
-                once = false;
+                onceBoost = false;
             }
             boostContainer.color = Color.red;
         }
@@ -266,7 +267,7 @@ public class MyController : MonoBehaviour
             heavyBreathing.color = breathingEffectColor;
             if (maxFadeValue > fadeGameOverThreshold && fade >= 1.0f)
             {
-                GameOver();
+                GameOver(false);
             }
         }
     }
@@ -377,11 +378,14 @@ public class MyController : MonoBehaviour
         }
     }
 
-    void GameOver()
+    public void GameOver(bool victory)
     {
         gameOver = true;
         heavyBreathing.gameObject.SetActive(false);
-        gameOverScreen.SetActive(true);
+        if (victory)
+            victoryScreen.SetActive(true);
+        else
+            gameOverScreen.SetActive(true);
     }
         
     Vector2 ApplyDeadZones(Vector2 pos) {
@@ -397,5 +401,15 @@ public class MyController : MonoBehaviour
         }
 
         return pos;
+    }
+
+    public void SetBoost(float amount)
+    {
+        onceBoost = true;
+        boostAmount = amount;
+        if (boostAmount > 0.0f)
+        {
+            boostContainer.color = baseColor;
+        }
     }
 }

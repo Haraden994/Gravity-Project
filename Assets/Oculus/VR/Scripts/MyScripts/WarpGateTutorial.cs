@@ -8,9 +8,15 @@ public class WarpGateTutorial : MonoBehaviour
 {
     public GameObject tutorial;
 
+    public GameObject nextGate;
+
+    public GameObject disabledGate;
+
+    public bool goal;
+
     private Rigidbody playerRB;
     private bool brakePlayer;
-    private float speedThreshold = 0.1f;
+    private float speedThreshold = 0.01f;
 
     private bool once = true;
 
@@ -20,20 +26,29 @@ public class WarpGateTutorial : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        if (disabledGate)
+            disabledGate.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Prop"))
-        {
-            Destroy(other.gameObject);
-
-            if (tutorial)
-                tutorial.SetActive(true);
-        }
-
         if (other.gameObject.CompareTag("Player") && once)
         {
             playerRB = other.gameObject.GetComponent<Rigidbody>();
             brakePlayer = true;
+
+            if (nextGate)
+            {
+                nextGate.SetActive(true);
+            }
+
+            if (goal)
+            {
+                playerRB.gameObject.GetComponent<MyController>().GameOver(true);
+            }
+
             once = false;
         }
     }
@@ -43,14 +58,20 @@ public class WarpGateTutorial : MonoBehaviour
     {
         if (brakePlayer && playerRB)
         {
-            playerRB.velocity = Vector3.Lerp(playerRB.velocity, Vector3.zero, Time.deltaTime * 2);
-            playerRB.angularVelocity = Vector3.Lerp(playerRB.angularVelocity, Vector3.zero, Time.deltaTime * 2);
+            playerRB.velocity = Vector3.Lerp(playerRB.velocity, Vector3.zero, Time.deltaTime * 4);
+            playerRB.angularVelocity = Vector3.Lerp(playerRB.angularVelocity, Vector3.zero, Time.deltaTime * 4);
             
 
             if (playerRB.velocity.magnitude <= speedThreshold)
             {
                 brakePlayer = false;
-                tutorial.SetActive(true);
+                if(tutorial)
+                    tutorial.SetActive(true);
+                if (!goal)
+                {
+                    disabledGate.SetActive(true);
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

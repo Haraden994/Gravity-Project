@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorial: {fileID: 2079443053}
+  nextGate: {fileID: 0}
+  disabledGate: {fileID: 0}
+  goal: 0
 --- !u!65 &41296703
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1328,7 +1331,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 250}
   savedColor: {r: 0.40784317, g: 0.6509804, b: 0.4901961, a: 1}
-  savedTextUV0: {x: 0.5463867, y: 0.22265625}
+  savedTextUV0: {x: 0.15625, y: 0.6669922}
   savedFill: 0
 --- !u!114 &310975943
 MonoBehaviour:
@@ -6112,7 +6115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4239c570d3c3eff4f880e8853ee0ab03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryPanel: {fileID: 577780979}
+  player: {fileID: 424474633}
   tutorialPanel: {fileID: 526845465}
 --- !u!1 &1452739354 stripped
 GameObject:
@@ -8881,6 +8884,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1211841195314700489, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: FirstTutorial
+      objectReference: {fileID: 0}
     - target: {fileID: 1211841196966455483, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
         type: 3}
       propertyPath: m_RootOrder
@@ -9255,5 +9263,15 @@ PrefabInstance:
       propertyPath: UIComponents
       value: 
       objectReference: {fileID: 5641544178915581700}
+    - target: {fileID: 8314660361117667277, guid: f767cbaa91ffe7243a4b27600c3fcee9,
+        type: 3}
+      propertyPath: victoryScreen
+      value: 
+      objectReference: {fileID: 577780979}
+    - target: {fileID: 8314660361117667277, guid: f767cbaa91ffe7243a4b27600c3fcee9,
+        type: 3}
+      propertyPath: boostPower
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f767cbaa91ffe7243a4b27600c3fcee9, type: 3}

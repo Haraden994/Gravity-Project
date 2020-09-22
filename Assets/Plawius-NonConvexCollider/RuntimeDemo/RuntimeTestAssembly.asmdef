@@ -1,9 +1,0 @@
-{
-    "name": "RuntimeTestAssembly",
-    "references": [
-        "NonConvexColliderRuntimeAPI",
-        "NonConvexCollider"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

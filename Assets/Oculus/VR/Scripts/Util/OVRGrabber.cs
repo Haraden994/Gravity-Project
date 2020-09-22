@@ -308,8 +308,15 @@ public class OVRGrabber : MonoBehaviour
             }
 
             m_grabbedObj = closestGrabbable;
-            m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
-            m_grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
+            if (m_grabbedObj.noRigidbody)
+            {
+                m_grabbedObj.ClimbNoRBBegin(this, closestGrabbableCollider);
+            }
+            else
+            {
+                m_grabbedObj.GrabBegin(this, closestGrabbableCollider);
+                m_grabbedRigidbody = m_grabbedObj.grabbedRigidbody;
+            }
 
             m_lastPos = transform.position;
             m_lastRot = transform.rotation;
@@ -352,7 +359,8 @@ public class OVRGrabber : MonoBehaviour
             if (isClimbing)
             {
                 playerRB.velocity = Vector3.zero;
-                m_grabbedRigidbody.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
+                if(!m_grabbedObj.noRigidbody)
+                    m_grabbedRigidbody.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
 
                 if (dummyTransform == null)
                 {
@@ -421,14 +429,22 @@ public class OVRGrabber : MonoBehaviour
             // Velocity = (Force of the player / Mass of the grabbed) * Time.fixedDeltaTime
             Vector3 forceApplied = -linearAcceleration * playerRB.mass;
             Vector3 rotationalForceApplied = angularAcceleration * (playerRB.mass / 1.5f);
-            Vector3 grabbedVelocity = forceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
-            Vector3 grabbedAngularVelocity = rotationalForceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
-
+            if (!m_grabbedObj.noRigidbody)
+            {
+                Vector3 grabbedVelocity = forceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
+                Vector3 grabbedAngularVelocity = rotationalForceApplied / grabbedObject.grabbedRigidbody.mass * Time.fixedDeltaTime;
+                
+                playerRB.velocity += (-forceApplied / playerRB.mass * Time.fixedDeltaTime);
+                if (isClimbing)
+                    playerRB.velocity += m_grabbedRigidbody.velocity;
+                GrabbableRelease(grabbedVelocity, grabbedAngularVelocity);
+            }
             //Third law of motion
-            playerRB.velocity += (-forceApplied / playerRB.mass * Time.fixedDeltaTime);
-            if (isClimbing)
-                playerRB.velocity += m_grabbedRigidbody.velocity;
-            GrabbableRelease(grabbedVelocity, grabbedAngularVelocity);
+            else
+            {
+                playerRB.velocity += (-forceApplied / playerRB.mass * Time.fixedDeltaTime);
+                ClimbNoRBRelease();
+            }
         }
         
         // Re-enable grab volumes to allow overlap events
@@ -440,12 +456,21 @@ public class OVRGrabber : MonoBehaviour
         transform.position = m_parentTransform.position;
     }
 
-    protected void GrabbableReleaseWithForce(Vector3 forceApplied)
+    protected void ClimbNoRBRelease()
     {
-        m_grabbedObj.GrabEndWithForce(forceApplied);
+        if (dummyTransform != null)
+        {
+            dummyTransform.parent = transform;
+            dummyTransform.localPosition = Vector3.zero;
+        }
+        
+        m_grabbedObj.ClimbNoRBEnd();
+        
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
+        
         SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
         m_grabbedObj = null;
+        m_grabbedRigidbody = null;
     }
     
     protected void GrabbableRelease(Vector3 linearVelocity, Vector3 angularVelocity)
@@ -455,7 +480,9 @@ public class OVRGrabber : MonoBehaviour
             dummyTransform.parent = transform;
             dummyTransform.localPosition = Vector3.zero;
         }
+        
         m_grabbedObj.GrabEnd(linearVelocity, angularVelocity);
+
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
         
         //TODO: Ignore collision if climbing with at least one hand.
@@ -488,7 +515,14 @@ public class OVRGrabber : MonoBehaviour
     {
         if (m_grabbedObj == grabbable)
         {
-            GrabbableRelease(Vector3.zero, Vector3.zero);
+            if (m_grabbedObj.noRigidbody)
+            {
+                ClimbNoRBRelease();
+            }
+            else
+            {
+                GrabbableRelease(Vector3.zero, Vector3.zero);
+            }
         }
     }
 

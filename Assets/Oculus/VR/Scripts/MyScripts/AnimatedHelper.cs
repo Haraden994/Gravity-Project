@@ -38,7 +38,7 @@ public class AnimatedHelper : MonoBehaviour
     void Update()
     {
         if(player)
-            transform.LookAt(player);
+            transform.LookAt(Camera.main.transform);
 
         if (grabbable)
         {

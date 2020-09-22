@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class LevelGoal : MonoBehaviour
 {
-    public GameObject victoryPanel;
+    public GameObject player;
     public GameObject tutorialPanel;
 
     private PauseManager pauseManager;
@@ -20,6 +20,6 @@ public class LevelGoal : MonoBehaviour
         if(tutorialPanel.activeSelf)
             tutorialPanel.SetActive(false);
         pauseManager.Pause();
-        victoryPanel.SetActive(true);
+        player.GetComponent<MyController>().GameOver(true);
     }
 }

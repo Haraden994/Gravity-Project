@@ -17,8 +17,8 @@ TagManager:
   - Restricted
   - Player
   - Grabbable
-  - 
-  - 
+  - PlayerGrabbed
+  - Climbable
   - 
   - 
   - 
@@ -39,6 +39,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Hands
+    uniqueID: 2475036173
+    locked: 0
+  - name: UI
+    uniqueID: 4190709809
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

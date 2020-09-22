@@ -39,6 +39,9 @@ public class OVRGrabbable : MonoBehaviour
     private Rigidbody _rb;
     [HideInInspector]
     public Vector3 momentum;
+
+    [HideInInspector] 
+    public bool noRigidbody;
     
     protected bool m_grabbedKinematic = false;
     protected Collider m_grabbedCollider = null;
@@ -124,6 +127,7 @@ public class OVRGrabbable : MonoBehaviour
 	    m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
         m_grabbedBy.collisionCheck = true;
+        gameObject.layer = LayerMask.NameToLayer("PlayerGrabbed");
         if (climbable)
 	        m_grabbedBy.isClimbing = true;
         else
@@ -135,6 +139,21 @@ public class OVRGrabbable : MonoBehaviour
         }
     }
 
+	virtual public void ClimbNoRBBegin(OVRGrabber hand, Collider grabPoint)
+	{
+		m_grabbedBy = hand;
+		m_grabbedCollider = grabPoint;
+		m_grabbedBy.collisionCheck = true;
+		m_grabbedBy.isClimbing = true;
+	}
+
+	virtual public void ClimbNoRBEnd()
+	{
+		m_grabbedBy.collisionCheck = false;
+		m_grabbedBy = null;
+		m_grabbedCollider = null;
+	}
+	
 	/// <summary>
 	/// Notifies the object that it has been released.
 	/// </summary>
@@ -144,11 +163,13 @@ public class OVRGrabbable : MonoBehaviour
 	    _rb.isKinematic = m_grabbedKinematic;
 	    if (climbable)
 	    {
+		    gameObject.layer = LayerMask.NameToLayer("Climbable");
 		    _rb.velocity += linearVelocity;
 		    _rb.angularVelocity += angularVelocity;
 	    }
 	    else
 	    {
+		    gameObject.layer = LayerMask.NameToLayer("Grabbable");
 		    _rb.velocity = linearVelocity;
 		    _rb.angularVelocity = angularVelocity;
 	    }
@@ -183,7 +204,10 @@ public class OVRGrabbable : MonoBehaviour
 
     protected virtual void Start()
     {
-        m_grabbedKinematic = _rb.isKinematic;
+	    if (_rb == null)
+		    noRigidbody = true;
+	    else
+		    m_grabbedKinematic = _rb.isKinematic;
     }
 
     void OnDestroy()
@@ -197,6 +221,7 @@ public class OVRGrabbable : MonoBehaviour
 
     private void FixedUpdate()
     {
-	    momentum = _rb.mass * _rb.velocity;
+	    if(!noRigidbody)
+			momentum = _rb.mass * _rb.velocity;
     }
 }
