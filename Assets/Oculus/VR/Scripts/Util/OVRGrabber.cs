@@ -99,6 +99,8 @@ public class OVRGrabber : MonoBehaviour
 
     private AudioSource grabSFX;
 
+    private bool paused;
+
     /// <summary>
     /// The currently grabbed object.
     /// </summary>
@@ -207,7 +209,8 @@ public class OVRGrabber : MonoBehaviour
 		// Update values from inputs
 		m_prevFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
-		CheckForGrabOrRelease(prevFlex);
+        if(!paused)
+		    CheckForGrabOrRelease(prevFlex);
     }
 
     void OnDestroy()
@@ -541,5 +544,25 @@ public class OVRGrabber : MonoBehaviour
 			}
 		}
 	}
+
+    public void GamePaused()
+    {
+        paused = true;
+        if (isClimbing)
+        {
+            if (m_grabbedObj.noRigidbody)
+            {
+                ClimbNoRBRelease();
+                return;
+            }
+        }
+        
+        GrabbableRelease(Vector3.zero, Vector3.zero);
+    }
+
+    public void GameResumed()
+    {
+        paused = false;
+    }
 }
 

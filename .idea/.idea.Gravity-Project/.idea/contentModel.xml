@@ -219,6 +219,13 @@
           <e p="UIOnTop.shader" t="Include" />
         </e>
         <e p="Oculus" t="Include">
+          <e p="AudioManager" t="Include">
+            <e p="Scenes" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="TestScript.cs" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="Avatar" t="Include">
             <e p="Resources" t="Include">
               <e p="Materials" t="Include">
@@ -766,6 +773,17 @@
               </e>
             </e>
           </e>
+          <e p="Spatializer" t="Include">
+            <e p="Editor" t="Include">
+              <e p="ONSPAudioPluginUpdater.cs" t="Include" />
+              <e p="ONSPAudioPluginUpdaterStub.cs" t="Include" />
+              <e p="ONSPAudioSourceEditor.cs" t="Include" />
+              <e p="ONSPPropagationGeometryEditor.cs" t="Include" />
+              <e p="ONSPPropagationMaterialEditor.cs" t="Include" />
+              <e p="ONSPPropagationSerializationManager.cs" t="Include" />
+              <e p="ONSPReflectionCustomGUI.cs" t="Include" />
+            </e>
+          </e>
           <e p="VR" t="Include">
             <e p="Editor" t="Include">
               <e p="AndroidManifest.OVRSubmission.xml" t="Include" />
@@ -817,15 +835,6 @@
                 <e p="AmbienceEmitter.cs" t="Include" />
                 <e p="AudioManager.cs" t="Include" />
                 <e p="AudioManager_Sound.cs" t="Include" />
-                <e p="Editor" t="Include">
-                  <e p="AudioImportPostProcessor.cs" t="Include" />
-                  <e p="AudioManagerInspector.cs" t="Include" />
-                  <e p="MinMaxPropertyDrawer.cs" t="Include" />
-                  <e p="MixerSnapshotPropertyDrawer.cs" t="Include" />
-                  <e p="OSPPropsPropertyDrawer.cs" t="Include" />
-                  <e p="SoundFXPropertyDrawer.cs" t="Include" />
-                  <e p="SoundFXRefPropertyDrawer.cs" t="Include" />
-                </e>
                 <e p="MinMaxAttribute.cs" t="Include" />
                 <e p="SoundEmitter.cs" t="Include" />
                 <e p="SoundFX.cs" t="Include" />
@@ -924,9 +933,6 @@
                 <e p="OVRWaitCursor.cs" t="Include" />
               </e>
               <e p="Utils" t="Include">
-                <e p="Editor" t="Include">
-                  <e p="DrawerInspectorNote.cs" t="Include" />
-                </e>
                 <e p="FastList.cs" t="Include" />
                 <e p="InspectorNoteAttribute.cs" t="Include" />
               </e>
@@ -937,15 +943,6 @@
               <e p="Unlit Crosshair.shader" t="Include" />
             </e>
             <e p="Spatializer" t="Include">
-              <e p="Editor" t="Include">
-                <e p="ONSPAudioPluginUpdater.cs" t="Include" />
-                <e p="ONSPAudioPluginUpdaterStub.cs" t="Include" />
-                <e p="ONSPAudioSourceEditor.cs" t="Include" />
-                <e p="ONSPPropagationGeometryEditor.cs" t="Include" />
-                <e p="ONSPPropagationMaterialEditor.cs" t="Include" />
-                <e p="ONSPPropagationSerializationManager.cs" t="Include" />
-                <e p="ONSPReflectionCustomGUI.cs" t="Include" />
-              </e>
               <e p="Scenes" t="Include">
                 <e p="Standard Assets" t="Include">
                   <e p="Character Controllers" t="Include">
@@ -980,26 +977,6 @@
             </e>
           </e>
         </e>
-        <e p="Plawius-NonConvexCollider" t="Include">
-          <e p="API" t="Include">
-            <e p="NonConvexColliderAPI.cs" t="Include" />
-            <e p="NonConvexColliderInterop.cs" t="Include" />
-            <e p="NonConvexColliderRuntimeAPI.asmdef" t="Include" />
-          </e>
-          <e p="Editor" t="Include">
-            <e p="NonConvexColliderComponentEditor.cs" t="Include" />
-            <e p="NonConvexColliderMenus.cs" t="Include" />
-            <e p="NonConvexColliderUnityExt.cs" t="Include" />
-            <e p="NonConvexEditor.asmdef" t="Include" />
-          </e>
-          <e p="NonConvexCollider.asmdef" t="Include" />
-          <e p="NonConvexColliderAsset.cs" t="Include" />
-          <e p="NonConvexColliderComponent.cs" t="Include" />
-          <e p="RuntimeDemo" t="Include">
-            <e p="RuntimeTest.cs" t="Include" />
-            <e p="RuntimeTestAssembly.asmdef" t="Include" />
-          </e>
-        </e>
         <e p="PolygonSciFiSpace" t="Include">
           <e p="Shaders" t="Include">
             <e p="POLYGON_SpaceShip_Rim.shader" t="Include" />
@@ -1010,20 +987,8 @@
             <e p="SyntyStudios_Triplanar_ObjectSpace.shader" t="Include" />
           </e>
         </e>
-        <e p="Stagit" t="Include">
-          <e p="SkyboxEarthPlanets" t="Include">
-            <e p="Readme.txt" t="Include" />
-            <e p="script" t="Include">
-              <e p="skyboxspace_demo_v1.cs" t="Include" />
-              <e p="skyboxspace_mouselook_v1.cs" t="Include" />
-            </e>
-          </e>
-        </e>
       </e>
       <e p="Gravity-Project.sln" t="IncludeFlat" />
-      <e p="NonConvexCollider.csproj" t="IncludeRecursive" />
-      <e p="NonConvexColliderRuntimeAPI.csproj" t="IncludeRecursive" />
-      <e p="NonConvexEditor.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Oculus.Platform.csproj" t="IncludeRecursive" />
       <e p="Oculus.Platform.Editor.csproj" t="IncludeRecursive" />
@@ -1031,7 +996,6 @@
       <e p="Oculus.VR.Editor.csproj" t="IncludeRecursive" />
       <e p="Oculus.VR.Scripts.Editor.csproj" t="IncludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="RuntimeTestAssembly.csproj" t="IncludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
   </component>

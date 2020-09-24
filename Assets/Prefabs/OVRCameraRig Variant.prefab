@@ -2070,7 +2070,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6f8ca24a874af994382ecbbbbc85bb95, type: 3}
-    m_FontSize: 26
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2101,7 +2101,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 150, y: 70}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.38232422, y: 0}
+  savedTextUV0: {x: 0, y: 0.0009765625}
   savedFill: 0
 --- !u!1 &8440356956036236879
 GameObject:
@@ -2430,12 +2430,27 @@ PrefabInstance:
     - target: {fileID: 578111184639405832, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: savedTextUV0.x
-      value: 0.100097656
+      value: 0.17089844
       objectReference: {fileID: 0}
     - target: {fileID: 578111184639405832, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: savedTextUV0.y
-      value: 0.017089844
+      value: 0.09423828
+      objectReference: {fileID: 0}
+    - target: {fileID: 578111184639405832, guid: 25d069c35592a6c41ba90a38d223e39e,
+        type: 3}
+      propertyPath: savedColor.r
+      value: 0.7058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 578111184639405832, guid: 25d069c35592a6c41ba90a38d223e39e,
+        type: 3}
+      propertyPath: savedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 578111184639405832, guid: 25d069c35592a6c41ba90a38d223e39e,
+        type: 3}
+      propertyPath: savedColor.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 578111184639405833, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
@@ -2510,7 +2525,7 @@ PrefabInstance:
     - target: {fileID: 578111185818281116, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: m_Text
-      value: Next Simulation
+      value: Retry
       objectReference: {fileID: 0}
     - target: {fileID: 578111185818281116, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
@@ -2520,7 +2535,7 @@ PrefabInstance:
     - target: {fileID: 578111185818281116, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 578111185818281119, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
@@ -2540,7 +2555,7 @@ PrefabInstance:
     - target: {fileID: 578111185818281119, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: savedTextUV0.y
-      value: 0.00048828125
+      value: 0.09765625
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25d069c35592a6c41ba90a38d223e39e, type: 3}

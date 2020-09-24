@@ -9,7 +9,10 @@ public class PauseManager : MonoBehaviour
     private GameObject inGameMenu;
     [SerializeField] 
     private GameObject tutorial;
-    
+
+    [SerializeField] private OVRGrabber leftGrabber;
+    [SerializeField] private OVRGrabber rightGrabber;
+
     private Rigidbody[] rigidbodies;
     private Vector3[] velocities;
     private Vector3[] angularVelocities;
@@ -63,6 +66,9 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
+        leftGrabber.GamePaused();
+        rightGrabber.GamePaused();
+        
         paused = true;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
@@ -75,6 +81,9 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
+        leftGrabber.GameResumed();
+        rightGrabber.GameResumed();
+        
         paused = false;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
