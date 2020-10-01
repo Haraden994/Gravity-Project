@@ -72,6 +72,9 @@ public class PauseManager : MonoBehaviour
         paused = true;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
+            if(rigidbodies[i].gameObject.CompareTag("NeverPaused"))
+                continue;
+            
             velocities[i] = rigidbodies[i].velocity;
             angularVelocities[i] = rigidbodies[i].angularVelocity;
             rigidbodies[i].velocity = Vector3.zero;
@@ -87,6 +90,9 @@ public class PauseManager : MonoBehaviour
         paused = false;
         for (int i = 0; i < rigidbodies.Length; i++)
         {
+            if(rigidbodies[i].gameObject.CompareTag("NeverPaused"))
+                continue;
+            
             rigidbodies[i].velocity = velocities[i];
             rigidbodies[i].angularVelocity = angularVelocities[i];
         }

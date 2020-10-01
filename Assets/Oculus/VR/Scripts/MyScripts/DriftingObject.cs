@@ -7,11 +7,15 @@ public class DriftingObject : MonoBehaviour
     public enum ObjectType
     {
         drifting,
-        rotating
+        rotating,
+        driftingAndRotating
     };
     public ObjectType objectType;
     
-    public Vector3 direction;
+    public Vector3 driftingDirection;
+    public Vector3 rotationDirection;
+    public float randomDriftPower;
+    public float randomRotationPower;
 
     private Rigidbody _rb;
 
@@ -23,13 +27,22 @@ public class DriftingObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (randomDriftPower > 0.0f)
+            driftingDirection = new Vector3(Random.Range(-randomDriftPower, randomDriftPower), Random.Range(-randomDriftPower, randomDriftPower), Random.Range(-randomDriftPower, randomDriftPower));
+        if(randomRotationPower > 0.0f)
+            rotationDirection = new Vector3(Random.Range(-randomRotationPower, randomRotationPower), Random.Range(-randomRotationPower, randomRotationPower), Random.Range(-randomRotationPower, randomRotationPower));
+
         switch (objectType)
         {
             case ObjectType.drifting:
-                gameObject.GetComponent<Rigidbody>().AddRelativeForce(direction * _rb.mass);
+                gameObject.GetComponent<Rigidbody>().AddRelativeForce(driftingDirection * _rb.mass);
                 break;
             case ObjectType.rotating:
-                gameObject.GetComponent<Rigidbody>().AddRelativeTorque(direction * _rb.mass);
+                gameObject.GetComponent<Rigidbody>().AddRelativeTorque(rotationDirection * _rb.mass);
+                break;
+            case ObjectType.driftingAndRotating:
+                gameObject.GetComponent<Rigidbody>().AddRelativeForce(driftingDirection * _rb.mass);
+                gameObject.GetComponent<Rigidbody>().AddRelativeTorque(rotationDirection * _rb.mass);
                 break;
         }
     }

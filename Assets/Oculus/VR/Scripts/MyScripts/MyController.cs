@@ -54,6 +54,8 @@ public class MyController : MonoBehaviour
     [SerializeField]
     private AudioSource rightBoosterSFX;
     [SerializeField] 
+    private AudioSource brakeSFX;
+    [SerializeField] 
     private ParticleSystem leftBoosterVFX;
     [SerializeField] 
     private ParticleSystem rightBoosterVFX;
@@ -84,6 +86,7 @@ public class MyController : MonoBehaviour
     private bool onceBoost = true;
     private bool onceLeft = true;
     private bool onceRight = true;
+    private bool onceOxygen = true;
     private bool somethingInside;
     private bool leftClimbing;
     private bool rightClimbing;
@@ -239,7 +242,10 @@ public class MyController : MonoBehaviour
         }
         else if (oxygenAmount <= 0.0f)
         {
-            heavyBreathing.gameObject.SetActive(true);
+            if (onceOxygen)
+            {
+                heavyBreathing.gameObject.SetActive(true);
+            }
 
             //Heavy Breathing effect in the HUD
             if (fadeCheck)
@@ -318,15 +324,19 @@ public class MyController : MonoBehaviour
                     rightBoosterSFX.Stop();
                     rightBoosterVFX.Stop();
                 }
-            }
-            
-            //Brake
-            if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick) || OVRInput.Get(OVRInput.Button.SecondaryThumbstick))
-            {
-                if (!rightClimbing && !leftClimbing)
+                
+                if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick) || OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
+                    brakeSFX.Play();
+
+                //Brake
+                if (OVRInput.Get(OVRInput.Button.PrimaryThumbstick) || OVRInput.Get(OVRInput.Button.SecondaryThumbstick))
                 {
-                    _rb.velocity = Vector3.Lerp(_rb.velocity, Vector3.zero, Time.deltaTime * brakePower);
-                    _rb.angularVelocity = Vector3.Lerp(_rb.angularVelocity, Vector3.zero, Time.deltaTime * brakePower);
+                    if (!rightClimbing && !leftClimbing)
+                    {
+                        _rb.velocity = Vector3.Lerp(_rb.velocity, Vector3.zero, Time.deltaTime * brakePower);
+                        _rb.angularVelocity = Vector3.Lerp(_rb.angularVelocity, Vector3.zero, Time.deltaTime * brakePower);
+                        boostAmount -= Time.deltaTime * (boostDepletionAmount * (_rb.velocity.magnitude * brakePower));
+                    }
                 }
             }
         }

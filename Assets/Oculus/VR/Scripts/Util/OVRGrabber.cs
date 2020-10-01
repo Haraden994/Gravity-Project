@@ -356,6 +356,8 @@ public class OVRGrabber : MonoBehaviour
                 m_grabbedObjectRotOff = relOri;
             }
 
+            SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
+            
             // Note: force teleport on grab, to avoid high-speed travel to dest which hits a lot of other objects at high
             // speed and sends them flying. The grabbed object may still teleport inside of other objects, but fixing that
             // is beyond the scope of this demo.
@@ -382,7 +384,6 @@ public class OVRGrabber : MonoBehaviour
             if (isGrabbing)
             {
                 MoveGrabbedObject(m_lastPos, m_lastRot, false);
-                SetPlayerIgnoreCollision(m_grabbedObj.gameObject, true);
                 playerRB.velocity = (playerMomentum + grabbedObject.momentum) / (playerRB.mass + grabbedObject.grabbedRigidbody.mass);
             }
             
@@ -488,7 +489,6 @@ public class OVRGrabber : MonoBehaviour
 
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
         
-        //TODO: Ignore collision if climbing with at least one hand.
         SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
         m_grabbedObj = null;
         m_grabbedRigidbody = null;
@@ -553,11 +553,10 @@ public class OVRGrabber : MonoBehaviour
             if (m_grabbedObj.noRigidbody)
             {
                 ClimbNoRBRelease();
-                return;
             }
         }
-        
-        GrabbableRelease(Vector3.zero, Vector3.zero);
+        else if(isGrabbing)
+            GrabbableRelease(Vector3.zero, Vector3.zero);
     }
 
     public void GameResumed()

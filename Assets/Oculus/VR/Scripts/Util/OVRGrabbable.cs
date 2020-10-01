@@ -122,12 +122,12 @@ public class OVRGrabbable : MonoBehaviour
 	/// <summary>
 	/// Notifies the object that it has been grabbed.
 	/// </summary>
-	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
+	public virtual void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
 	    m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
-        m_grabbedBy.collisionCheck = true;
-        gameObject.layer = LayerMask.NameToLayer("PlayerGrabbed");
+        //m_grabbedBy.collisionCheck = true;
+        //gameObject.layer = LayerMask.NameToLayer("PlayerGrabbed");
         if (climbable)
 	        m_grabbedBy.isClimbing = true;
         else
@@ -139,7 +139,7 @@ public class OVRGrabbable : MonoBehaviour
         }
     }
 
-	virtual public void ClimbNoRBBegin(OVRGrabber hand, Collider grabPoint)
+	public void ClimbNoRBBegin(OVRGrabber hand, Collider grabPoint)
 	{
 		m_grabbedBy = hand;
 		m_grabbedCollider = grabPoint;
@@ -147,7 +147,7 @@ public class OVRGrabbable : MonoBehaviour
 		m_grabbedBy.isClimbing = true;
 	}
 
-	virtual public void ClimbNoRBEnd()
+	public void ClimbNoRBEnd()
 	{
 		m_grabbedBy.collisionCheck = false;
 		m_grabbedBy = null;
@@ -163,13 +163,13 @@ public class OVRGrabbable : MonoBehaviour
 	    _rb.isKinematic = m_grabbedKinematic;
 	    if (climbable)
 	    {
-		    gameObject.layer = LayerMask.NameToLayer("Climbable");
+		    //gameObject.layer = LayerMask.NameToLayer("Climbable");
 		    _rb.velocity += linearVelocity;
 		    _rb.angularVelocity += angularVelocity;
 	    }
 	    else
 	    {
-		    gameObject.layer = LayerMask.NameToLayer("Grabbable");
+		    //gameObject.layer = LayerMask.NameToLayer("Grabbable");
 		    _rb.velocity = linearVelocity;
 		    _rb.angularVelocity = angularVelocity;
 	    }
@@ -177,15 +177,7 @@ public class OVRGrabbable : MonoBehaviour
         m_grabbedCollider = null;
     }
 
-	public void GrabEndWithForce(Vector3 forceApplied)
-	{
-		_rb.isKinematic = m_grabbedKinematic;
-		_rb.AddRelativeForce(forceApplied);
-		m_grabbedBy = null;
-		m_grabbedCollider = null;
-	}
-
-    void Awake()
+	void Awake()
     {
 	    _rb = gameObject.GetComponent<Rigidbody>();
         if (m_grabPoints.Length == 0)

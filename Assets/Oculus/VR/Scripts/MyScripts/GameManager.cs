@@ -8,9 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
-    [SerializeField]
-    private SoundFXRef mainMenuBGM;
 
     private void Awake()
     {
@@ -24,28 +21,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-    
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name.Equals("TitleScreen"))
-        {
-            mainMenuBGM.PlaySoundAt(FindObjectOfType<Canvas>().gameObject.transform.position);
-        }
-        else
-        {
-            mainMenuBGM.StopSound();
-        }
     }
 
     // Start is called before the first frame update

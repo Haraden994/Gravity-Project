@@ -309,7 +309,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 354.1281, y: 0.00008443071, z: 354.1281}
+  m_Size: {x: 290, y: 0, z: 290}
   m_Center: {x: 0.00006866458, y: -2.1703715, z: -0.000046293833}
 --- !u!114 &1321735099
 MonoBehaviour:
@@ -374,7 +374,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1253286640031572, guid: 6e0deafa173995d4c8bc0468ad071d42, type: 3}
       propertyPath: m_Name
-      value: FirstWarp
+      value: WarpGate
       objectReference: {fileID: 0}
     - target: {fileID: 1253286640031572, guid: 6e0deafa173995d4c8bc0468ad071d42, type: 3}
       propertyPath: m_Layer

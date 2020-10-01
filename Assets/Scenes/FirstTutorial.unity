@@ -1297,7 +1297,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2740,7 +2740,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3094,6 +3094,11 @@ PrefabInstance:
 
         Hand-Boosters'
       objectReference: {fileID: 0}
+    - target: {fileID: 578111184639405835, guid: 25d069c35592a6c41ba90a38d223e39e,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
     - target: {fileID: 578111184639405837, guid: 25d069c35592a6c41ba90a38d223e39e,
         type: 3}
       propertyPath: trueButton
@@ -3513,8 +3518,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameMenu: {fileID: 866551311}
   tutorial: {fileID: 526845465}
-  leftGrabber: {fileID: 0}
-  rightGrabber: {fileID: 0}
+  leftGrabber: {fileID: 5641544178915581694}
+  rightGrabber: {fileID: 5641544178915581695}
   startPaused: 1
 --- !u!4 &688411099
 Transform:
@@ -5232,8 +5237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae27003bc5f36db4093ada3832ade0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuBGM:
-    soundFXName: Default Sound
 --- !u!4 &1128222772
 Transform:
   m_ObjectHideFlags: 0
@@ -6216,7 +6219,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectType: 1
-  direction: {x: 0, y: 0.5, z: 0}
+  driftingDirection: {x: 0, y: 0, z: 0}
+  rotationDirection: {x: 0, y: 0.5, z: 0}
+  randomDriftPower: 0
+  randomRotationPower: 0
 --- !u!54 &1430930563
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7696,7 +7702,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -8142,7 +8148,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -8587,7 +8593,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -9594,7 +9600,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 1dd706bb85d8aef4e83a6229dbd62c36,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 1f268d61172102440ab69b21292129fa, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 724735d42f363684cb54364115446c48, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -10104,6 +10110,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5641544178915581691}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &5641544178915581701 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4758789223984990731, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5641544178915581691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8314660361533683649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10295,5 +10307,10 @@ PrefabInstance:
       propertyPath: boostPower
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8314660361117667277, guid: f767cbaa91ffe7243a4b27600c3fcee9,
+        type: 3}
+      propertyPath: brakeSFX
+      value: 
+      objectReference: {fileID: 5641544178915581701}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f767cbaa91ffe7243a4b27600c3fcee9, type: 3}

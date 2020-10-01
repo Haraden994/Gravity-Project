@@ -61,7 +61,6 @@ public class WarpGateTutorial : MonoBehaviour
             playerRB.velocity = Vector3.Lerp(playerRB.velocity, Vector3.zero, Time.deltaTime * 4);
             playerRB.angularVelocity = Vector3.Lerp(playerRB.angularVelocity, Vector3.zero, Time.deltaTime * 4);
             
-
             if (playerRB.velocity.magnitude <= speedThreshold)
             {
                 brakePlayer = false;
