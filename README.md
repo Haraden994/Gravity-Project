@@ -8,7 +8,7 @@ The whole environment of the levels is interactible and objects can be grabbed o
 The game is strongly based on the third Newtonian law of motion, so objects have a mass and throwing them will push the player according to this law.
 
 Used asset packs, all of which I personally own the license:
-- Polygon Sci-Fi Space Pack (https://assetstore.unity.com/packages/3d/environments/sci-fi/polygon-sci-fi-space-pack-138857);
+- Polygon Sci-Fi Space Pack (https://syntystore.com/collections/frontpage/products/polygon-sci-fi-space-pack);
 - Curved UI (https://assetstore.unity.com/packages/tools/gui/curved-ui-vr-ready-solution-to-bend-warp-your-canvas-53258);
 - Human Vocal Sounds (https://assetstore.unity.com/packages/audio/sound-fx/voices/human-vocal-sounds-154462).
 
