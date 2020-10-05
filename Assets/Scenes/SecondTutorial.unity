@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 906345397}
-  m_IndirectSpecularColor: {r: 0.01905275, g: 0.009527007, b: 0.03903044, a: 1}
+  m_IndirectSpecularColor: {r: 0.019136017, g: 0.009631307, b: 0.039147314, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3856,7 +3856,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 500, y: 250}
   savedColor: {r: 0.40784317, g: 0.6509804, b: 0.4901961, a: 1}
-  savedTextUV0: {x: 0.123046875, y: 0.5}
+  savedTextUV0: {x: 0.24951172, y: 0.07373047}
   savedFill: 0
 --- !u!114 &457410851
 MonoBehaviour:
@@ -18021,7 +18021,7 @@ MonoBehaviour:
   savedUp: {x: 0, y: 1, z: 0}
   savedRectSize: {x: 200, y: 70}
   savedColor: {r: 0, g: 0, b: 0, a: 1}
-  savedTextUV0: {x: 0.8515625, y: 0.26757812}
+  savedTextUV0: {x: 0.106933594, y: 0}
   savedFill: 0
 --- !u!114 &2064886290
 MonoBehaviour:
@@ -18654,6 +18654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Demo Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787980461131478334, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: FirstLevel
       objectReference: {fileID: 0}
     - target: {fileID: 4787980462837792077, guid: 50e61cded5ec3b34f933d6dccefd6ad3,
         type: 3}
