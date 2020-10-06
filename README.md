@@ -1,6 +1,6 @@
 # Gravity-Project
 
-Gravity Project is a Virtual Reality Game made for Oculus Quest/Rift as university projecty for the Virtual Reality subject.
+Gravity Project is a Virtual Reality Game made for Oculus Quest/Rift as university project for the Virtual Reality subject.
 
 The player is an Astronaut that finds themself adrift in space with a limited oxygen supply and, also limited, suit-boosters to move freely. The goal of the various levels is to reach a safe place that can be a teleporter, a Space station, a safety pod or even a cargo ship passing nearby.
 
