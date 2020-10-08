@@ -94,6 +94,7 @@ public class MyController : MonoBehaviour
     
     //Heavy Breathing animation and game over variables
     private float fade;
+    private float startingMaxFadeValue = 0.6f;
     private float maxFadeValue = 0.6f;
     private float fadeIncrease = 0.2f;
     private float fadeGameOverThreshold = 1.6f;
@@ -245,6 +246,7 @@ public class MyController : MonoBehaviour
             if (onceOxygen)
             {
                 heavyBreathing.gameObject.SetActive(true);
+                onceOxygen = false;
             }
 
             //Heavy Breathing effect in the HUD
@@ -419,7 +421,26 @@ public class MyController : MonoBehaviour
         boostAmount = amount;
         if (boostAmount > 0.0f)
         {
+            boostFill.color = baseColor;
             boostContainer.color = baseColor;
+        }
+    }
+
+    public void SetOxygen(float amount)
+    {
+        if (oxygenAmount <= 0.0f && amount > 0.0f)
+        {
+            onceOxygen = true;
+            heavyBreathing.gameObject.SetActive(false);
+            maxFadeValue = startingMaxFadeValue;
+            fadeInterpolator = 0.0f;
+            fadeCheck = true;
+        }
+        oxygenAmount = amount;
+        if (oxygenAmount > 0.0f)
+        {
+            oxygenFill.color = baseColor;
+            oxygenContainer.color = baseColor;
         }
     }
 }

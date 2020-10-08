@@ -9,7 +9,8 @@ public class AnimatedHelper : MonoBehaviour
     public enum AnimationType
     {
         scaleChanging,
-        moving
+        moving,
+        none
     };
     public AnimationType animType;
 
@@ -56,6 +57,8 @@ public class AnimatedHelper : MonoBehaviour
                 break;
             case AnimationType.moving:
                 transform.position = Vector3.Lerp(startingPosition.position, endingPosition.position, Mathf.PingPong(Time.time * animationSpeed, 1));
+                break;
+            case AnimationType.none:
                 break;
         }
         

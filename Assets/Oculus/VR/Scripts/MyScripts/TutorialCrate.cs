@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialCrate : MonoBehaviour
 {
+    public Vector3 positionOffset;
+    public bool spawnNearPlayer;
     public GameObject tutorialWindow;
-        
+    public Transform player;
+
     private OVRGrabbable grabbable;
     
     // Start is called before the first frame update
@@ -17,9 +21,18 @@ public class TutorialCrate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (grabbable.isGrabbed)
+        if (tutorialWindow)
         {
-            tutorialWindow.SetActive(false);
+            if (grabbable.isGrabbed)
+            {
+                tutorialWindow.SetActive(false);
+            }
         }
+    }
+
+    private void OnEnable()
+    {
+        if(spawnNearPlayer && player)
+            transform.position = player.position + positionOffset;
     }
 }

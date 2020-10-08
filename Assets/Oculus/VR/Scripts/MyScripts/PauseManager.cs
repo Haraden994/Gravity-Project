@@ -97,4 +97,9 @@ public class PauseManager : MonoBehaviour
             rigidbodies[i].angularVelocity = angularVelocities[i];
         }
     }
+
+    public void DeleteTutorial()
+    {
+        tutorial = null;
+    }
 }

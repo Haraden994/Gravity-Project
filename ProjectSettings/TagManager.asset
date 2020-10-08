@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Prop
   - NeverPaused
+  - Battery
+  - Left
+  - Right
   layers:
   - Default
   - TransparentFX

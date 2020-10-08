@@ -117,7 +117,15 @@ public class OVRGrabber : MonoBehaviour
         );
         if (canRelease)
         {
-            GrabEnd();
+            if (m_grabbedObj.noRigidbody)
+            {
+                ClimbNoRBRelease();
+            }
+            else
+            {
+                GrabbableRelease(Vector3.zero, Vector3.zero);
+            }
+            //GrabEnd();
         }
     }
 
@@ -548,14 +556,14 @@ public class OVRGrabber : MonoBehaviour
     public void GamePaused()
     {
         paused = true;
-        if (isClimbing)
+        if (isClimbing && m_grabbedObj)
         {
             if (m_grabbedObj.noRigidbody)
             {
                 ClimbNoRBRelease();
             }
         }
-        else if(isGrabbing)
+        else if(isGrabbing && m_grabbedObj)
             GrabbableRelease(Vector3.zero, Vector3.zero);
     }
 
