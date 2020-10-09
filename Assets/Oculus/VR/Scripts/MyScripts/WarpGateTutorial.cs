@@ -13,10 +13,12 @@ public class WarpGateTutorial : MonoBehaviour
     public GameObject disabledGate;
 
     public bool goal;
+    public bool needsObjective;
 
     private Rigidbody playerRB;
     private bool brakePlayer;
     private float speedThreshold = 0.01f;
+    private MyController playerController;
 
     private bool once = true;
 
@@ -50,6 +52,15 @@ public class WarpGateTutorial : MonoBehaviour
             }
 
             once = false;
+        }
+
+        if (needsObjective)
+        {
+            if (other.gameObject.CompareTag("Objective"))
+            {
+                playerController = FindObjectOfType<MyController>();
+                playerController.GameOver(true);
+            }
         }
     }
 

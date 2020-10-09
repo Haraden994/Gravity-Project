@@ -9,6 +9,7 @@ TagManager:
   - Battery
   - Left
   - Right
+  - Objective
   layers:
   - Default
   - TransparentFX

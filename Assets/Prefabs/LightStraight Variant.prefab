@@ -92,6 +92,22 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!54 &722850872
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881337564884694768}
+  serializedVersion: 2
+  m_Mass: 15
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &722850873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,22 +128,6 @@ MonoBehaviour:
   climbable: 0
   momentum: {x: 0, y: 0, z: 0}
   noRigidbody: 0
---- !u!54 &722850872
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3881337564884694768}
-  serializedVersion: 2
-  m_Mass: 15
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &3880940346220260432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1857477283633704, guid: c78f2f1e4d68b264b8b6dd5529269193, type: 3}
       propertyPath: m_Name
-      value: SM_Prop_Light_Small_04
+      value: LightStraight Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4487485550611312, guid: c78f2f1e4d68b264b8b6dd5529269193, type: 3}
       propertyPath: m_LocalPosition.x

@@ -398,6 +398,8 @@ public class MyController : MonoBehaviour
             victoryScreen.SetActive(true);
         else
             gameOverScreen.SetActive(true);
+        
+        pauseManager.Pause();
     }
         
     Vector2 ApplyDeadZones(Vector2 pos) {

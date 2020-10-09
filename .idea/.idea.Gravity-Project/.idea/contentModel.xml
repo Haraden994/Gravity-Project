@@ -714,6 +714,7 @@
                 <e p="DriftingObject.cs" t="Include" />
                 <e p="GameManager.cs" t="Include" />
                 <e p="LevelGoal.cs" t="Include" />
+                <e p="LevelObjective.cs" t="Include" />
                 <e p="MyButton.cs" t="Include" />
                 <e p="MyController.cs" t="Include" />
                 <e p="PauseManager.cs" t="Include" />
