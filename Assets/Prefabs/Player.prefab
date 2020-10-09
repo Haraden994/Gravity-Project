@@ -146,9 +146,10 @@ MonoBehaviour:
   bodyOffset: {x: 0, y: -0.7, z: 0}
   neckThreshold: 45
   bodyRotationSpeed: 2
-  cameraDistanceThreshold: 0.6
+  cameraDistanceThreshold: 0.7
   thumbstickDeadzone: 0.005
   gameOverScreen: {fileID: 0}
+  victoryScreen: {fileID: 0}
   outOfVrBodyUI: {fileID: 0}
   UIComponents: {fileID: 0}
   oxygenContainer: {fileID: 0}
@@ -158,6 +159,7 @@ MonoBehaviour:
   heavyBreathing: {fileID: 0}
   leftBoosterSFX: {fileID: 0}
   rightBoosterSFX: {fileID: 0}
+  brakeSFX: {fileID: 0}
   leftBoosterVFX: {fileID: 0}
   rightBoosterVFX: {fileID: 0}
   boostPower: 3

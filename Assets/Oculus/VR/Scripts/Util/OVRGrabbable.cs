@@ -127,11 +127,11 @@ public class OVRGrabbable : MonoBehaviour
 	    m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
         //m_grabbedBy.collisionCheck = true;
-        //gameObject.layer = LayerMask.NameToLayer("PlayerGrabbed");
         if (climbable)
 	        m_grabbedBy.isClimbing = true;
         else
         {
+	        gameObject.layer = LayerMask.NameToLayer("PlayerGrabbed");
 	        m_grabbedBy.isGrabbing = true;
 	        _rb.velocity = Vector3.zero;
 	        _rb.angularVelocity = Vector3.zero;
@@ -169,7 +169,7 @@ public class OVRGrabbable : MonoBehaviour
 	    }
 	    else
 	    {
-		    //gameObject.layer = LayerMask.NameToLayer("Grabbable");
+		    gameObject.layer = LayerMask.NameToLayer("Grabbable");
 		    _rb.velocity = linearVelocity;
 		    _rb.angularVelocity = angularVelocity;
 	    }
