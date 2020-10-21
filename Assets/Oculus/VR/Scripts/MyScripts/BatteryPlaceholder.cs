@@ -25,8 +25,11 @@ public class BatteryPlaceholder : MonoBehaviour
         {
             GameObject battery = other.gameObject;
             OVRGrabbable batteryGrabbable = battery.GetComponent<OVRGrabbable>();
+            Rigidbody batteryRB = battery.GetComponent<Rigidbody>();
             
             batteryGrabbable.grabbedBy.ForceRelease(batteryGrabbable);
+            batteryRB.velocity = Vector3.zero;
+            batteryRB.angularVelocity = Vector3.zero;
             battery.GetComponent<MeshCollider>().enabled = false;
             battery.transform.position = transform.position;
             battery.transform.rotation = transform.rotation;

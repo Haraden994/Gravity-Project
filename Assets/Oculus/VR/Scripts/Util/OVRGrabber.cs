@@ -493,7 +493,10 @@ public class OVRGrabber : MonoBehaviour
             dummyTransform.localPosition = Vector3.zero;
         }
         
-        m_grabbedObj.GrabEnd(linearVelocity, angularVelocity);
+        if(m_grabbedObj.climbable)
+            m_grabbedObj.GrabEnd(linearVelocity, angularVelocity);
+        else
+            m_grabbedObj.GrabEnd(playerRB.velocity + linearVelocity, angularVelocity);
 
         if(m_parentHeldObject) m_grabbedObj.transform.parent = null;
         
