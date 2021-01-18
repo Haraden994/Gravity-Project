@@ -53,6 +53,19 @@ MonoBehaviour:
   rotationDirection: {x: 1.5, y: 1.5, z: 1.5}
   randomDriftPower: 0
   randomRotationPower: 0
+--- !u!114 &1185053795149749493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8798840639258671839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c097c67dbc43641b46488016da93f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherCollider: {fileID: 1800162610}
 --- !u!64 &1800162610
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -87,6 +100,19 @@ MonoBehaviour:
   climbable: 1
   momentum: {x: 0, y: 0, z: 0}
   noRigidbody: 0
+--- !u!114 &4547366068905511856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8798085288558295433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c097c67dbc43641b46488016da93f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherCollider: {fileID: 8861083359059513437}
 --- !u!1001 &8799434342013874345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1719742860921462, guid: 61f6772736cda0c4c8396454a192fafb, type: 3}
       propertyPath: m_Name
-      value: SM_Prop_CryoBed_01
+      value: SM_Prop_CryoBed_01 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1719742860921462, guid: 61f6772736cda0c4c8396454a192fafb, type: 3}
       propertyPath: m_TagString
@@ -186,6 +212,12 @@ GameObject:
 --- !u!4 &8794842281900224807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4592234601349518, guid: 61f6772736cda0c4c8396454a192fafb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8799434342013874345}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &8861083359059513437 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 64522315806941428, guid: 61f6772736cda0c4c8396454a192fafb,
     type: 3}
   m_PrefabInstance: {fileID: 8799434342013874345}
   m_PrefabAsset: {fileID: 0}
