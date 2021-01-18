@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 906345397}
-  m_IndirectSpecularColor: {r: 0.01905275, g: 0.009527007, b: 0.03903044, a: 1}
+  m_IndirectSpecularColor: {r: 0.019136017, g: 0.009631307, b: 0.039147314, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8999,7 +8999,7 @@ MonoBehaviour:
   m_Text: '(!!!) Crucial safety advice (!!!)
 
     Keep always track of your suit''s
-    Oxygen supply located on the right side of your Helmet''s HUD.'
+    Oxygen supply located on the left side of your Helmet''s HUD.'
 --- !u!222 &1919960881
 CanvasRenderer:
   m_ObjectHideFlags: 0
